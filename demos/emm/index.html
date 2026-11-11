@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Emmanuel Logistics Group | Soluciones logísticas integrales en Colombia</title>
+<meta name="description" content="Transporte, distribución, almacenamiento y control de reparto desde Barranquilla para todo el territorio nacional.">
+<meta name="theme-color" content="#1D4ED8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231D4ED8'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial' font-weight='800' font-style='italic' font-size='24' fill='white'%3EEGL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>/* Emmanuel Logistics Group · concepto v2 (demo) · basado en la estructura del sitio actual */
+:root{
+  --blue:#1D4ED8;        /* azul de marca del sitio actual */
+  --blue-2:#2563EB;
+  --blue-3:#1E40AF;
+  --navy:#172B6B;
+  --ink:#0F1B3D;
+  --sky:#E8EEFF;
+  --sky-2:#C9D6FF;
+  --bg:#F3F5FA;
+  --card:#FFFFFF;
+  --muted:#5D6880;
+  --line:#E2E7F1;
+  --kraft:#F6EFE2;      /* papel de guía */
+  --stamp:#E2452B;      /* sello, en dosis mínimas */
+  --wa:#25D366;
+  --side:264px;
+  --r:16px;
+  --f:"Plus Jakarta Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --shadow:0 1px 2px rgba(15,27,61,.04),0 12px 32px -12px rgba(15,27,61,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--f);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--blue-2);outline-offset:3px;border-radius:6px}
+.tbc{background:#FFF1C9;color:#6B4A00;border-bottom:1px dashed #C99A1E;padding:0 .3em;border-radius:3px;font-style:normal;white-space:nowrap;font-weight:600}
+.on-blue .tbc{background:rgba(255,241,201,.18);color:#FFE7A3;border-bottom-color:#FFD25E}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+
+.demo-banner{background:#FFD25E;color:#3A2A00;font:600 12.5px/1.35 var(--f);text-align:center;padding:8px 16px;position:relative;z-index:70}
+
+/* ===== Shell: barra lateral como en el sitio actual ===== */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--side);background:linear-gradient(180deg,#2157E8 0%,#1D4ED8 45%,#1A44C2 100%);color:#fff;display:flex;flex-direction:column;z-index:40;padding:22px 16px 18px}
+@media (min-width:1081px){.demo-banner{margin-left:var(--side)}}
+.side-logo{display:flex;flex-direction:column;align-items:center;gap:12px;padding:6px 0 22px;text-align:center}
+.logo-tile{width:96px;height:72px;border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
+.logo-tile b{font:800 italic 30px/1 var(--f);letter-spacing:-.04em;color:var(--blue);transform:skewX(-6deg)}
+.logo-tile small{display:block;font:700 6.5px/1 var(--f);letter-spacing:.18em;color:var(--navy);margin-top:4px;text-transform:uppercase}
+.side-name{font:800 15px/1.1 var(--f);letter-spacing:.06em;text-transform:uppercase}
+.side-name small{display:block;font:500 10px/1.4 var(--f);letter-spacing:.14em;opacity:.7;margin-top:3px}
+.side-nav{list-style:none;display:grid;gap:4px;margin-top:4px}
+.side-nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-size:14.5px;font-weight:600;color:rgba(255,255,255,.86);transition:background .2s,color .2s}
+.side-nav a svg{width:18px;height:18px;flex:none;opacity:.9}
+.side-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.side-nav a[aria-current="page"]{background:#fff;color:var(--blue);box-shadow:0 8px 20px -10px rgba(0,0,0,.45)}
+.side-ticket{margin-top:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 14px 12px;position:relative}
+.side-ticket::before{content:"";position:absolute;left:12px;right:12px;top:44px;border-top:1.5px dashed rgba(255,255,255,.3)}
+.side-ticket .mono{font-size:10px;opacity:.75;display:block;margin-bottom:16px}
+.side-ticket a,.side-ticket span.row{display:flex;align-items:center;gap:8px;font-size:12px;padding:4px 0;color:rgba(255,255,255,.92);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.side-ticket a:hover{color:#fff}
+.side-ticket svg{width:14px;height:14px;flex:none}
+.side-ticket svg.barcode{margin-top:10px;width:100%;height:22px;opacity:.5}
+
+.main{margin-left:var(--side);min-height:100vh}
+.topbar{position:sticky;top:0;z-index:30;height:68px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(16px,3vw,36px)}
+.tb-brand{display:flex;align-items:center;gap:12px;font:800 16px/1 var(--f);letter-spacing:.03em;color:var(--navy);text-transform:uppercase}
+.tb-brand .mini{font:800 italic 15px/1 var(--f);color:var(--blue);letter-spacing:-.04em;padding-right:12px;border-right:1px solid var(--line)}
+.tb-right{display:flex;align-items:center;gap:18px;font-size:13.5px;color:var(--muted)}
+.tb-right a.l{display:flex;align-items:center;gap:7px}
+.tb-right a.l:hover{color:var(--blue)}
+.tb-right svg{width:15px;height:15px;color:var(--blue)}
+.menu-btn{display:none;width:42px;height:42px;border-radius:12px;background:var(--sky);color:var(--blue);place-items:center}
+.menu-btn span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;position:relative;transition:background .2s}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:18px;height:2px;border-radius:2px;background:currentColor;transition:transform .3s var(--ease),top .3s}
+.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+.menu-open .menu-btn span{background:transparent}
+.menu-open .menu-btn span::before{top:0;transform:rotate(45deg)}
+.menu-open .menu-btn span::after{top:0;transform:rotate(-45deg)}
+.mobile-menu{display:none}
+.content{padding:clamp(16px,2.4vw,28px)}
+.block{margin-top:clamp(56px,7vw,96px)}
+
+/* ===== Botones ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:50px;padding:0 24px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .3s var(--ease),background .25s,color .25s,box-shadow .3s;white-space:nowrap}
+.btn svg{width:17px;height:17px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn:active{transform:scale(.98)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 10px 22px -10px rgba(29,78,216,.8)}
+.btn-blue:hover{background:var(--blue-2)}
+.btn-white{background:#fff;color:var(--blue);box-shadow:0 10px 22px -12px rgba(0,0,0,.4)}
+.btn-white:hover{background:var(--sky)}
+.btn-line{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+.btn-line:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.btn-line-dark{border:1.5px solid var(--line);color:var(--ink);background:#fff}
+.btn-line-dark:hover{border-color:var(--blue);color:var(--blue)}
+.btn-sm{height:40px;padding:0 18px;font-size:13.5px}
+
+/* ===== Encabezados de sección (como el sitio actual: centrado + línea) ===== */
+.sh{text-align:center;max-width:720px;margin:0 auto clamp(32px,4vw,48px)}
+.sh .mono{color:var(--blue);display:inline-flex;align-items:center;gap:10px}
+.sh h2{font:800 clamp(30px,3.4vw,44px)/1.1 var(--f);letter-spacing:-.025em;color:var(--navy);margin:12px 0 0}
+.sh h2::after{content:"";display:block;width:56px;height:4px;border-radius:4px;background:var(--blue);margin:18px auto 0}
+.sh p{color:var(--muted);margin-top:16px;font-size:17px}
+.sh.left{text-align:left;margin-left:0}
+.sh.left h2::after{margin-left:0}
+
+/* ===== Hero ===== */
+.hero{position:relative;border-radius:24px;overflow:hidden;color:#fff;background:radial-gradient(120% 140% at 85% 0%,#3B6CF5 0%,#1D4ED8 42%,#1838A8 100%);padding:clamp(40px,5.5vw,80px) clamp(24px,4.5vw,72px)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,64px);align-items:center}
+.hero-grid>*{min-width:0}
+.hero .tag{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 8px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:13px;font-weight:600}
+.hero .tag i{width:22px;height:22px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;font-style:normal}
+.hero .tag i svg{width:12px;height:12px}
+.hero h1{font:800 clamp(38px,5vw,68px)/1.04 var(--f);letter-spacing:-.035em;margin:22px 0 20px}
+.hero h1 span{color:#A9C3FF}
+.hero p.lead{font-size:clamp(16px,1.3vw,18px);color:#DCE6FF;max-width:52ch;margin-bottom:32px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-routes{position:absolute;inset:0;pointer-events:none;opacity:.22}
+.hero-routes svg{width:100%;height:100%}
+.hero-routes path{stroke-dasharray:6 10;animation:dash 30s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-800}}
+
+/* ===== Ticket base (guía de despacho) ===== */
+.ticket{--notch:12px;--cut:50%;position:relative;background:#fff;color:var(--ink);border-radius:18px;
+  -webkit-mask:radial-gradient(circle var(--notch) at 0 var(--cut),#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--notch) at 100% var(--cut),#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle var(--notch) at 0 var(--cut),#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--notch) at 100% var(--cut),#0000 98%,#000) right/51% 100% no-repeat}
+.shadow-wrap{filter:drop-shadow(0 18px 30px rgba(15,27,61,.16)) drop-shadow(0 1px 1px rgba(15,27,61,.06))}
+.perf{border:0;border-top:2px dashed var(--line);margin:0}
+.barcode{display:block;height:34px;width:100%}
+
+/* Guía del hero */
+.waybill-wrap{justify-self:end;width:100%;max-width:430px;transform:rotate(2deg);filter:drop-shadow(0 30px 50px rgba(8,20,70,.45))}
+.waybill{--cut:94px;padding:22px 24px 20px}
+.wb-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.wb-head .who{display:flex;align-items:center;gap:10px}
+.wb-head .who b{font:800 italic 18px/1 var(--f);color:var(--blue);letter-spacing:-.04em}
+.wb-head .who span{font-size:11px;color:var(--muted);line-height:1.3}
+.wb-num{text-align:right}
+.wb-num .mono{color:var(--muted);font-size:9.5px}
+.wb-num strong{display:block;font:700 15px var(--mono);letter-spacing:.04em;margin-top:2px}
+.waybill .perf{margin:22px -24px 0}
+.wb-route{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:22px 0 18px}
+.wb-city .mono{font-size:9.5px;color:var(--muted)}
+.wb-city b{display:block;font:800 30px/1 var(--f);letter-spacing:-.03em;color:var(--navy);margin:4px 0 2px}
+.wb-city span{font-size:12px;color:var(--muted)}
+.wb-city.r{text-align:right}
+.wb-line{position:relative;height:30px;margin:0 14px}
+.wb-line .track{position:absolute;left:0;right:0;top:50%;border-top:2px dashed var(--sky-2)}
+#wb-dot{position:absolute;top:50%;left:0;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;transition:left 1.2s var(--ease);box-shadow:0 0 0 6px rgba(29,78,216,.14)}
+#wb-dot svg{width:16px;height:16px}
+.wb-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.wb-meta div{background:#fff;padding:10px 12px}
+.wb-meta .mono{font-size:9px;color:var(--muted);display:block}
+.wb-meta b{font-size:13px}
+.wb-steps{list-style:none;display:grid;gap:10px;padding:18px 0 14px}
+.wb-steps li{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;font-size:14px;font-weight:600;color:#9AA3B8;transition:color .3s}
+.wb-steps .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;transition:all .35s var(--ease)}
+.wb-steps .dot svg{width:12px;height:12px;opacity:0;transition:opacity .2s}
+.wb-steps li.done{color:var(--ink)}
+.wb-steps li.done .dot{background:var(--blue);border-color:var(--blue);color:#fff}
+.wb-steps li.done .dot svg{opacity:1}
+.wb-steps li.now{color:var(--ink)}
+.wb-steps li.now .dot{border-color:var(--blue);box-shadow:0 0 0 5px rgba(29,78,216,.14)}
+.wb-steps .mono{font-size:9.5px;color:#9AA3B8}
+.wb-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.wb-foot .barcode{height:36px;max-width:220px}
+.wb-foot .mono{font-size:9px;color:var(--muted);text-align:right;line-height:1.5}
+.stamp{position:absolute;right:22px;top:150px;transform:rotate(-14deg);border:2.5px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:5px 10px;font:800 13px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.85;mix-blend-mode:multiply}
+.stamp small{display:block;font-size:8.5px;letter-spacing:.14em;margin-top:3px;text-align:center}
+
+/* ===== Cifras como tira de tickets ===== */
+.stats-wrap{margin-top:-36px;position:relative;z-index:2;padding:0 clamp(12px,3vw,40px)}
+.stats{--notch:14px;display:grid;grid-template-columns:repeat(4,1fr) 170px;background:linear-gradient(90deg,#1A3FB6,#1D4ED8 60%,#2157E8);color:#fff;border-radius:18px;
+  -webkit-mask:radial-gradient(circle var(--notch) at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--notch) at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle var(--notch) at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle var(--notch) at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.stat{padding:28px 20px;text-align:center;position:relative}
+.stat+.stat::before,.stats .stub::before{content:"";position:absolute;left:0;top:16px;bottom:16px;border-left:2px dashed rgba(255,255,255,.28)}
+.stat b{display:block;font:800 clamp(32px,3.2vw,44px)/1 var(--f);letter-spacing:-.03em}
+.stat span{display:block;margin-top:8px;font:600 11.5px var(--f);letter-spacing:.1em;text-transform:uppercase;color:#C9D6FF}
+.stats .stub{position:relative;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:18px 22px;background:rgba(0,0,0,.12)}
+.stats .stub .barcode{height:38px;opacity:.9}
+.stats .stub .mono{font-size:9px;color:#C9D6FF}
+.stats-note{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px}
+
+/* ===== Servicios como etiquetas de envío ===== */
+.labels{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.label-wrap{filter:drop-shadow(0 14px 24px rgba(15,27,61,.10)) drop-shadow(0 1px 1px rgba(15,27,61,.06));transition:transform .4s var(--ease),filter .4s}
+.label-wrap:hover{transform:translateY(-6px) rotate(-.6deg);filter:drop-shadow(0 24px 36px rgba(15,27,61,.18)) drop-shadow(0 1px 1px rgba(15,27,61,.06))}
+.label{--cut:118px;display:flex;flex-direction:column;height:100%;padding:0}
+.label-top{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:var(--sky);color:var(--blue)}
+.label-top .mono{font-size:10px;font-weight:700}
+.label-top .code{font:700 10px var(--mono);letter-spacing:.08em;background:#fff;padding:4px 8px;border-radius:6px}
+.label-ic{width:52px;height:52px;border-radius:14px;background:var(--blue);color:#fff;display:grid;place-items:center;margin:18px 18px 0;position:relative;box-shadow:0 10px 18px -8px rgba(29,78,216,.8)}
+.label-ic svg{width:24px;height:24px}
+.label-body{padding:16px 18px 16px;flex:1}
+.label h3{font:800 21px/1.15 var(--f);letter-spacing:-.02em;color:var(--navy);margin-bottom:8px}
+.label p{font-size:14.5px;color:var(--muted)}
+.label .perf{margin:0 12px}
+.label-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px 16px}
+.label-foot .barcode{height:26px;width:96px}
+.label-foot .go{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--blue)}
+.label-foot .go svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+.label-wrap:hover .go svg{transform:translateX(3px)}
+
+/* ===== Ruta (cómo trabajamos) ===== */
+.route-card{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:clamp(28px,4vw,52px);overflow:hidden}
+.route{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:12px}
+.route-line{position:absolute;left:12.5%;right:12.5%;top:27px;height:2px;background:repeating-linear-gradient(90deg,var(--sky-2) 0 8px,transparent 8px 16px)}
+.route-fill{position:absolute;left:0;top:0;height:2px;width:0;background:var(--blue);transition:width 2.2s var(--ease)}
+.route-truck{position:absolute;top:-15px;left:0;width:32px;height:32px;margin-left:-16px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;transition:left 2.2s var(--ease);box-shadow:0 0 0 6px rgba(29,78,216,.12)}
+.route-truck svg{width:16px;height:16px}
+.steps.in .route-fill{width:100%}
+.steps.in .route-truck{left:100%}
+.stop{text-align:center;position:relative}
+.stop .pin{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--sky-2);color:var(--blue);display:grid;place-items:center;margin:0 auto 18px;position:relative;z-index:1;font:800 15px var(--mono)}
+.stop h3{font:800 18px/1.25 var(--f);color:var(--navy);margin-bottom:6px}
+.stop p{font-size:14.5px;color:var(--muted);max-width:26ch;margin:0 auto}
+
+/* ===== Misión / visión (tarjetas con borde como el sitio actual) ===== */
+.mv{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.mv-card{position:relative;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);border-left:5px solid var(--blue);padding:clamp(26px,3vw,40px);overflow:hidden}
+.mv-card .ic{width:50px;height:50px;border-radius:14px;background:var(--sky);color:var(--blue);display:grid;place-items:center;margin-bottom:20px}
+.mv-card .ic svg{width:24px;height:24px}
+.mv-card h3{font:800 26px/1.15 var(--f);color:var(--navy);margin-bottom:12px;letter-spacing:-.02em}
+.mv-card p{color:var(--muted);font-size:16px}
+.mv-card .stamp{top:24px;right:24px;transform:rotate(8deg);font-size:11px;border-color:var(--sky-2);color:var(--blue);opacity:1;mix-blend-mode:normal}
+
+/* ===== Quiénes somos ===== */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.about-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);border-left:5px solid var(--blue);padding:clamp(26px,3vw,40px)}
+.about-card h3{font:800 24px/1.2 var(--f);color:var(--navy);margin-bottom:14px}
+.about-card p{color:var(--muted);margin-bottom:14px}
+.manifest{background:var(--kraft);border-radius:18px;padding:22px 24px;font-family:var(--mono);font-size:12.5px;color:#4A3F2A;position:relative;transform:rotate(-1.2deg);box-shadow:0 16px 30px -18px rgba(60,40,0,.45)}
+.manifest::before{content:"";position:absolute;top:-10px;left:50%;width:90px;height:22px;margin-left:-45px;background:rgba(201,214,255,.7);transform:rotate(-3deg);border-radius:3px}
+.manifest h4{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1.5px dashed rgba(74,63,42,.35);margin-bottom:6px}
+.manifest ul{list-style:none}
+.manifest li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dotted rgba(74,63,42,.3)}
+.manifest li span:last-child{font-weight:700;text-align:right}
+.manifest .ok{color:var(--blue)}
+
+/* ===== CTA tipo pase ===== */
+.pass{display:grid;grid-template-columns:1fr 240px;border-radius:24px;overflow:hidden;color:#fff;background:linear-gradient(120deg,#1838A8,#1D4ED8 55%,#2B5FF0)}
+.pass-main{padding:clamp(32px,4.5vw,60px);text-align:center}
+.pass-main h2{font:800 clamp(28px,3.2vw,42px)/1.12 var(--f);letter-spacing:-.025em}
+.pass-main p{color:#DCE6FF;max-width:46ch;margin:14px auto 26px}
+.pass-main .hero-actions{justify-content:center}
+.pass-stub{position:relative;background:rgba(0,0,0,.14);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;border-left:2px dashed rgba(255,255,255,.3)}
+.pass-stub::before,.pass-stub::after{content:"";position:absolute;left:-13px;width:24px;height:24px;border-radius:50%;background:var(--bg)}
+.pass-stub::before{top:-12px}.pass-stub::after{bottom:-12px}
+.pass-stub .mono{font-size:9.5px;color:#C9D6FF}
+.pass-stub b{display:block;font:800 22px/1.1 var(--f);margin-top:4px}
+.pass-stub .barcode{height:44px}
+
+/* ===== FAQ ===== */
+.faq{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:6px clamp(20px,3vw,36px)}
+.faq details+details{border-top:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font:700 17px/1.35 var(--f);color:var(--navy)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sky);color:var(--blue);position:relative;transition:transform .3s var(--ease)}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;border-radius:2px;background:currentColor;transform:translate(-50%,-50%)}
+.faq summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] summary i{transform:rotate(45deg)}
+.faq details p{color:var(--muted);padding:0 0 20px;max-width:70ch}
+
+/* ===== Footer azul como el sitio actual ===== */
+.site-footer{margin-top:clamp(56px,7vw,96px);background:linear-gradient(135deg,#1A3FB6,#1D4ED8);color:#DCE6FF;border-radius:24px 24px 0 0;padding:clamp(44px,5vw,64px) clamp(24px,4vw,56px) 24px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.3fr;gap:32px;padding-bottom:36px;border-bottom:1.5px dashed rgba(255,255,255,.25)}
+.ft-grid h4{font:800 13px var(--f);letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.ft-grid ul{list-style:none;display:grid;gap:9px;font-size:14.5px}
+.ft-grid a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.ft-grid p{font-size:14.5px;max-width:34ch}
+.ft-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#B8C8F5;padding-top:20px}
+
+/* ===== WhatsApp flotante ===== */
+.wa-fab{position:fixed;right:22px;bottom:22px;z-index:50;width:56px;height:56px;border-radius:50%;background:var(--wa);color:#fff;display:grid;place-items:center;box-shadow:0 12px 26px -8px rgba(37,211,102,.7);transition:transform .3s var(--ease)}
+.wa-fab:hover{transform:scale(1.06)}
+.wa-fab svg{width:28px;height:28px}
+.mbar{display:none}
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:all .35s var(--ease);z-index:80;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ===== Páginas internas ===== */
+.page-hero{position:relative;border-radius:24px;overflow:hidden;color:#fff;background:radial-gradient(120% 160% at 90% 0%,#3B6CF5 0%,#1D4ED8 45%,#1838A8 100%);padding:clamp(36px,4.5vw,64px) clamp(24px,4.5vw,64px);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.page-hero>*{min-width:0}
+.crumbs{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#C9D6FF;display:flex;gap:8px}
+.crumbs a:hover{color:#fff}
+.page-hero h1{font:800 clamp(34px,4.4vw,58px)/1.06 var(--f);letter-spacing:-.03em;margin:16px 0 14px}
+.page-hero h1 span{color:#A9C3FF}
+.page-hero p{color:#DCE6FF;max-width:58ch;font-size:17px}
+.ph-tag{--notch:10px;--cut:50%;background:#fff;color:var(--ink);border-radius:14px;padding:14px 18px;min-width:210px;transform:rotate(3deg);filter:drop-shadow(0 18px 28px rgba(8,20,70,.4))}
+.ph-tag .mono{font-size:9.5px;color:var(--muted)}
+.ph-tag b{display:block;font:800 22px/1.1 var(--f);color:var(--navy);margin:4px 0 10px}
+.ph-tag .barcode{height:26px}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fact{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:20px 22px;border-top:4px solid var(--blue)}
+.fact .mono{font-size:10px;color:var(--muted);display:block;margin-bottom:8px}
+.fact b{font:800 18px/1.3 var(--f);color:var(--navy)}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.value{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:28px}
+.value .ic{width:50px;height:50px;border-radius:14px;background:var(--sky);color:var(--blue);display:grid;place-items:center;margin-bottom:18px}
+.value .ic svg{width:24px;height:24px}
+.value h3{font:800 20px var(--f);color:var(--navy);margin-bottom:8px}
+.value p{color:var(--muted);font-size:15px}
+
+/* Servicios detalle */
+.svc-tabs{position:sticky;top:68px;z-index:20;background:rgba(243,245,250,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);margin:0 calc(-1*clamp(16px,2.4vw,28px));padding:12px clamp(16px,2.4vw,28px)}
+.svc-tabs .in{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.svc-tabs .in::-webkit-scrollbar{display:none}
+.svc-tabs a{flex:none;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:700;background:#fff;color:var(--muted);box-shadow:0 1px 2px rgba(15,27,61,.06);transition:all .25s}
+.svc-tabs a svg{width:16px;height:16px}
+.svc-tabs a.active{background:var(--blue);color:#fff}
+.svc{scroll-margin-top:150px;margin-top:28px}
+.svc-card{--cut:50%;--notch:16px;display:grid;grid-template-columns:1fr 300px;background:#fff}
+.svc-main{padding:clamp(26px,3.4vw,44px)}
+.svc-main .head{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.svc-main .head .ic{width:56px;height:56px;border-radius:16px;background:var(--blue);color:#fff;display:grid;place-items:center;flex:none}
+.svc-main .head .ic svg{width:26px;height:26px}
+.svc-main .head .mono{color:var(--blue);font-size:10.5px}
+.svc-main h2{font:800 clamp(24px,2.6vw,32px)/1.15 var(--f);letter-spacing:-.02em;color:var(--navy)}
+.svc-main .lead{color:var(--muted);font-size:16.5px;max-width:58ch;margin-bottom:22px}
+.includes{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-bottom:26px}
+.includes li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:15px;font-weight:600}
+.includes svg{width:20px;height:20px;color:var(--blue);margin-top:1px}
+.svc-side{position:relative;background:var(--kraft);padding:26px 24px;border-left:2px dashed #D9CBB0;font-family:var(--mono);color:#4A3F2A;display:flex;flex-direction:column;gap:4px}
+.svc-side h4{font:700 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding-bottom:10px;margin-bottom:4px;border-bottom:1.5px dashed rgba(74,63,42,.35)}
+.svc-side dl div{padding:9px 0;border-bottom:1px dotted rgba(74,63,42,.3)}
+.svc-side dt{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.svc-side dd{font:600 13.5px var(--f);color:var(--ink);margin-top:2px}
+.svc-side .barcode{margin-top:auto;padding-top:16px;height:50px}
+
+/* Políticas como carpetas */
+.pol-layout{display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:start}
+.pol-layout>*{min-width:0}
+.pol-nav{position:sticky;top:92px;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:10px;display:grid;gap:2px}
+.pol-nav a{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;font-size:14.5px;font-weight:600;color:var(--muted);transition:all .2s}
+.pol-nav a .n{font:700 10px var(--mono);color:var(--blue);width:22px}
+.pol-nav a:hover{background:var(--bg);color:var(--ink)}
+.pol-nav a.active{background:var(--sky);color:var(--blue)}
+.folder{position:relative;margin-bottom:28px;scroll-margin-top:96px;padding-top:30px}
+.folder-tab{position:absolute;top:0;left:0;height:34px;padding:0 18px;border-radius:12px 12px 0 0;background:#fff;display:flex;align-items:center;gap:10px;font:700 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);box-shadow:0 -4px 10px -6px rgba(15,27,61,.1)}
+.folder-body{background:#fff;border-radius:0 var(--r) var(--r) var(--r);box-shadow:var(--shadow);padding:clamp(24px,3.4vw,40px);position:relative}
+.folder-body h2{font:800 clamp(22px,2.4vw,28px)/1.2 var(--f);color:var(--navy);margin-bottom:12px;padding-right:150px}
+.folder-body p{color:var(--muted);margin-bottom:14px;max-width:70ch}
+.folder-body ul{margin:0 0 16px 18px;color:var(--muted);display:grid;gap:6px}
+.folder-body .stamp{top:24px;right:24px;transform:rotate(-8deg);font-size:10.5px}
+.doc{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border:1.5px dashed var(--line);border-radius:12px;font-size:14px;color:var(--muted)}
+.doc svg{width:18px;height:18px;color:var(--blue)}
+
+/* Contacto: formulario como guía */
+.contact-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:24px;align-items:start}
+.contact-grid>*{min-width:0}
+.c-list{display:grid;gap:12px}
+.c-item{display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:center;padding:16px 18px;background:#fff;border-radius:14px;box-shadow:var(--shadow);border-left:4px solid var(--blue);transition:transform .3s var(--ease)}
+a.c-item:hover{transform:translateX(4px)}
+.c-item .ic{width:46px;height:46px;border-radius:12px;background:var(--sky);color:var(--blue);display:grid;place-items:center}
+.c-item .ic svg{width:20px;height:20px}
+.c-item .mono{color:var(--muted);font-size:9.5px;display:block;margin-bottom:2px}
+.c-item b{font-weight:700;font-size:15px;word-break:break-word}
+.form-card{--cut:124px;--notch:14px;background:#fff;scroll-margin-top:90px}
+.form-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px clamp(20px,3vw,36px);background:var(--blue);color:#fff}
+.form-head h2{font:800 clamp(20px,2.2vw,26px)/1.1 var(--f)}
+.form-head .mono{font-size:9.5px;color:#C9D6FF;display:block;margin-bottom:6px}
+.form-head .num{text-align:right;font:700 13px var(--mono)}
+.form-inner{padding:26px clamp(20px,3vw,36px) 28px}
+.progress{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px}
+.progress i{font-style:normal;font:700 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#9AA3B8;padding-top:10px;border-top:3px solid var(--line);transition:all .3s}
+.progress i.on{color:var(--blue);border-top-color:var(--blue)}
+.fstep{display:none;animation:fade .45s var(--ease)}
+.fstep.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+fieldset{border:0}
+.fstep legend{font:800 18px var(--f);color:var(--navy);margin-bottom:16px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice>span{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;padding:14px;border:2px solid var(--line);border-radius:14px;cursor:pointer;transition:all .2s;font-weight:700}
+.choice>span .ci{width:44px;height:44px;border-radius:12px;background:var(--sky);color:var(--blue);display:grid;place-items:center;transition:all .2s}
+.choice>span .ci svg{width:22px;height:22px}
+.choice small{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:1px}
+.choice input:checked+span{border-color:var(--blue);background:#F5F8FF}
+.choice input:checked+span .ci{background:var(--blue);color:#fff}
+.choice input:focus-visible+span{outline:2px solid var(--blue-2);outline-offset:2px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields .full{grid-column:1/-1}
+.field label{display:block;font:700 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;height:50px;border:2px solid var(--line);border-radius:12px;padding:0 14px;font:inherit;font-size:16px;background:#fff;color:var(--ink);transition:border-color .2s}
+.field textarea{height:110px;padding:12px 14px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--blue)}
+.form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.form-nav .btn[hidden]{display:none}
+.form-legal{font-size:12.5px;color:var(--muted);margin-top:16px}
+.form-done{display:none;text-align:center;padding:36px 24px 32px;position:relative}
+.form-done.show{display:block;animation:fade .5s var(--ease)}
+.form-done .stamp{position:relative;display:inline-block;top:auto;right:auto;font-size:18px;padding:10px 16px;margin-bottom:22px}
+.form-done h3{font:800 24px var(--f);color:var(--navy);margin-bottom:8px}
+.form-done p{color:var(--muted);max-width:44ch;margin:0 auto 22px}
+
+/* ===== Revelado ===== */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+.waybill-wrap.rv{transform:translateY(22px) rotate(2deg)}
+.waybill-wrap.rv.in{transform:rotate(2deg)}
+@media (prefers-reduced-motion:reduce){.rv,.waybill-wrap.rv{opacity:1;transform:none;transition:none}*{animation:none!important;transition-duration:.01ms!important}}
+
+/* ===== Responsive ===== */
+@media (max-width:1280px){
+  .labels{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .stats .stub{display:none}
+}
+@media (max-width:1080px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .menu-btn{display:grid}
+  .tb-right a.l{display:none}
+  .mobile-menu{display:flex;position:fixed;left:0;right:0;top:0;bottom:0;z-index:25;background:linear-gradient(180deg,#2157E8,#1A44C2);color:#fff;flex-direction:column;padding:120px 20px 110px;gap:18px;opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s;overflow:auto}
+  .menu-open .mobile-menu{opacity:1;visibility:visible}
+  .menu-open{overflow:hidden}
+  .mobile-menu .side-nav a{font-size:18px;padding:14px 16px}
+  .mobile-menu .side-ticket{margin-top:8px}
+  .hero-grid,.about,.contact-grid,.pol-layout{grid-template-columns:1fr}
+  .waybill-wrap{justify-self:center}
+  .svc-card{grid-template-columns:1fr;--cut:-100px}
+  .svc-side{border-left:0;border-top:2px dashed #D9CBB0}
+  .pol-nav{position:static;display:flex;overflow-x:auto;scrollbar-width:none}
+  .pol-nav a{flex:none}
+}
+@media (max-width:760px){
+  .content{padding:12px}
+  .topbar{height:62px}
+  .tb-brand{font-size:13px}
+  .tb-right .btn{display:none}
+  .hero{border-radius:20px;padding:34px 20px 64px}
+  .hero h1{font-size:clamp(34px,9.6vw,44px)}
+  .hero-actions .btn{flex:1}
+  .waybill{padding:18px 18px 16px;--cut:88px}
+  .waybill .perf{margin:20px -18px 0}
+  .wb-city b{font-size:24px}
+  .waybill-wrap .stamp{top:140px;right:14px}
+  .stats-wrap{padding:0 8px}
+  .stats{grid-template-columns:1fr 1fr;-webkit-mask:none;mask:none}
+  .stat:nth-child(3)::before{display:none}
+  .stat:nth-child(n+3){border-top:2px dashed rgba(255,255,255,.22)}
+  .stat{padding:22px 10px}
+  .labels{grid-template-columns:1fr}
+  .route{grid-template-columns:1fr;gap:28px}
+  .route-line{left:27px;right:auto;top:28px;bottom:28px;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--sky-2) 0 8px,transparent 8px 16px)}
+  .route-fill{width:2px!important;height:0;transition:height 2.2s var(--ease)}
+  .steps.in .route-fill{height:100%}
+  .route-truck{display:none}
+  .stop{text-align:left;display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start}
+  .stop .pin{margin:0}
+  .stop p{margin:0}
+  .mv,.values{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr 1fr}
+  .pass{grid-template-columns:1fr}
+  .pass-stub{border-left:0;border-top:2px dashed rgba(255,255,255,.3);flex-direction:row;align-items:center}
+  .pass-stub::before,.pass-stub::after{top:-13px;bottom:auto}
+  .pass-stub::before{left:-12px}.pass-stub::after{left:auto;right:-12px}
+  .pass-stub .barcode{width:120px;height:36px}
+  .ft-grid{grid-template-columns:1fr;gap:26px}
+  .site-footer{border-radius:20px 20px 0 0;padding-bottom:100px}
+  .page-hero{grid-template-columns:1fr;border-radius:20px;padding:30px 20px}
+  .ph-tag{display:none}
+  .includes,.choices,.fields{grid-template-columns:1fr}
+  .folder-body h2{padding-right:0;margin-top:44px}
+  .folder-body .stamp{top:18px;left:24px;right:auto;transform:rotate(-4deg)}
+  .form-nav .btn{flex:1}
+  .form-card{--cut:96px}
+  .wa-fab{display:none}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  .mbar a{height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:700;font-size:14px;background:var(--sky);color:var(--blue)}
+  .mbar a svg{width:18px;height:18px}
+  .mbar a.wa{background:#E3F9EC;color:#128C4A}
+  .mbar a.pri{background:var(--blue);color:#fff}
+  .menu-open .mbar{display:none}
+  .toast{bottom:92px}
+}
+.label{--cut:calc(100% - 56px)}
+.svc-card{-webkit-mask:radial-gradient(circle 16px at calc(100% - 300px) 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 16px at calc(100% - 300px) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;mask:radial-gradient(circle 16px at calc(100% - 300px) 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 16px at calc(100% - 300px) 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+@media (max-width:1080px){.svc-card{-webkit-mask:none;mask:none;border-radius:18px;overflow:hidden}}
+@media (max-width:760px){
+  .svc-tabs{margin:0 -12px;padding:10px 12px;top:62px}
+  .pass-stub>div:nth-child(2){display:none}
+  .pass-stub b{font-size:20px;white-space:nowrap}
+}
+
+/* ================= v3: corporativo + animado ================= */
+.hero-routes{display:none}
+.hero-grid{grid-template-columns:1fr 1fr}
+/* Escena del camión */
+.scene{position:relative;width:100%;max-width:560px;justify-self:end}
+.scene-svg{width:100%;height:auto;border-radius:28px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.scene .far{animation:pan 60s linear infinite}
+.scene .near{animation:pan 28s linear infinite}
+.scene .lanes{animation:pan-lanes 1.1s linear infinite}
+@keyframes pan{to{transform:translateX(-560px)}}
+@keyframes pan-lanes{to{transform:translateX(-80px)}}
+.scene .truck{animation:bump .9s ease-in-out infinite}
+@keyframes bump{50%{transform:translateY(-1.5px)}}
+.scene .wheel{transform-box:fill-box;transform-origin:center;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scene .speed path{animation:speed 1.2s ease-in-out infinite}
+.scene .speed path:nth-child(2){animation-delay:.3s}.scene .speed path:nth-child(3){animation-delay:.6s}
+@keyframes speed{0%{opacity:0;transform:translateX(30px)}40%{opacity:1}100%{opacity:0;transform:translateX(-30px)}}
+.chip{position:absolute;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:14px;background:#fff;color:var(--navy);font-weight:700;font-size:14px;box-shadow:0 16px 30px -14px rgba(8,20,70,.55);animation:float 6s ease-in-out infinite;white-space:nowrap}
+.chip span{width:32px;height:32px;border-radius:10px;background:var(--sky);color:var(--blue);display:grid;place-items:center}
+.chip span svg{width:17px;height:17px}
+.chip.c1{left:-18px;top:16%}
+.chip.c2{right:-14px;top:6%;animation-delay:-2s}
+.chip.c3{right:8%;bottom:-18px;animation-delay:-4s}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+/* Cifras: franja limpia como la original */
+.stats{-webkit-mask:none;mask:none;grid-template-columns:repeat(4,1fr);box-shadow:0 20px 40px -20px rgba(29,78,216,.6)}
+.stat+.stat::before{border-left:1px solid rgba(255,255,255,.2)}
+.stats-wrap{margin-top:-40px}
+
+/* Servicios: tarjetas corporativas */
+.svc-c{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:var(--r);padding:28px 24px 24px;box-shadow:var(--shadow);overflow:hidden;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.svc-c::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.svc-c::after{content:"";position:absolute;right:-60px;bottom:-60px;width:160px;height:160px;border-radius:50%;background:var(--sky);opacity:0;transform:scale(.6);transition:all .6s var(--ease)}
+.svc-c:hover{transform:translateY(-6px);box-shadow:0 30px 50px -24px rgba(15,27,61,.3)}
+.svc-c:hover::before{transform:scaleX(1)}
+.svc-c:hover::after{opacity:.7;transform:scale(1)}
+.svc-c>*{position:relative;z-index:1}
+.svc-ic{width:56px;height:56px;border-radius:16px;background:var(--sky);color:var(--blue);display:grid;place-items:center;margin-bottom:22px;transition:background .3s,color .3s,transform .5s var(--ease)}
+.svc-ic svg{width:26px;height:26px}
+.svc-c:hover .svc-ic{background:var(--blue);color:#fff;transform:rotate(-6deg)}
+.svc-c h3{font:800 20px/1.2 var(--f);color:var(--navy);margin-bottom:8px}
+.svc-c p{color:var(--muted);font-size:15px;flex:1}
+.svc-c .go{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-weight:700;font-size:14px;color:var(--blue)}
+.svc-c .go svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+.svc-c:hover .go svg{transform:translateX(4px)}
+
+/* Radar de cobertura */
+.coverage{position:relative;border-radius:var(--r);background:radial-gradient(120% 120% at 30% 20%,#2B5FF0,#1838A8);color:#fff;padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;overflow:hidden}
+.radar{position:relative;width:180px;height:180px;margin:0 auto}
+.radar span{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);animation:ping 3.6s var(--ease) infinite;opacity:0}
+.radar span:nth-child(2){animation-delay:1.2s}.radar span:nth-child(3){animation-delay:2.4s}
+@keyframes ping{0%{transform:scale(.2);opacity:.9}100%{transform:scale(1.15);opacity:0}}
+.radar i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(255,255,255,.15)}
+.radar i svg{width:26px;height:26px}
+.cov-txt{text-align:center}
+.cov-txt b{display:block;font:800 24px var(--f)}
+.cov-txt span{color:#DCE6FF;font-size:15px}
+.cov-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cov-list li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 12px;font-weight:600;font-size:14px}
+.cov-list svg{width:16px;height:16px;flex:none}
+.about{align-items:stretch}
+
+/* CTA como la original, con fondo vivo */
+.cta-band{position:relative;overflow:hidden;border-radius:24px;background:linear-gradient(120deg,#1838A8,#1D4ED8 55%,#2B5FF0);color:#fff;text-align:center;padding:clamp(40px,5vw,72px) 24px}
+.cta-band h2{position:relative;font:800 clamp(28px,3.2vw,42px)/1.12 var(--f);letter-spacing:-.025em}
+.cta-band p{position:relative;color:#DCE6FF;max-width:52ch;margin:14px auto 28px}
+.cta-band .btn{position:relative}
+.cta-orbs span{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);animation:drift 14s ease-in-out infinite}
+.cta-orbs span:nth-child(1){width:360px;height:360px;left:-100px;top:-160px}
+.cta-orbs span:nth-child(2){width:280px;height:280px;right:-80px;bottom:-140px;animation-delay:-5s}
+.cta-orbs span:nth-child(3){width:180px;height:180px;right:24%;top:-90px;animation-delay:-9s}
+@keyframes drift{50%{transform:translate(30px,20px) scale(1.1)}}
+
+/* Encabezado interno */
+.ph-ic{width:120px;height:120px;border-radius:32px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);display:grid;place-items:center;animation:float 6s ease-in-out infinite}
+.ph-ic svg{width:52px;height:52px}
+
+/* Servicios detalle: panel claro */
+.svc-side{background:var(--bg);border-left:1px solid var(--line);font-family:var(--f);color:var(--ink)}
+.svc-side h4{font:800 13px var(--f);letter-spacing:.06em;color:var(--navy);border-bottom:1px solid var(--line)}
+.svc-side dl div{border-bottom:1px solid var(--line)}
+.svc-side dt{font:600 11px var(--f);letter-spacing:.06em;color:var(--muted);opacity:1}
+.svc-card{-webkit-mask:none;mask:none;border-radius:var(--r);overflow:hidden;border-left:5px solid var(--blue);box-shadow:var(--shadow)}
+.shadow-wrap{filter:none}
+
+/* Políticas */
+.folder{padding-top:0;margin-bottom:20px}
+.folder-body{border-radius:var(--r);border-left:5px solid var(--blue)}
+.folder-body h2{padding-right:0}
+.badge{display:inline-block;font:700 11px var(--f);letter-spacing:.04em;padding:6px 10px;border-radius:8px;background:#FFF1C9;color:#6B4A00;margin-bottom:14px}
+
+/* Formulario */
+.form-card{border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.done-ic{width:68px;height:68px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;margin:0 auto 20px;animation:pop .6s var(--ease)}
+.done-ic svg{width:30px;height:30px}
+@keyframes pop{0%{transform:scale(.4);opacity:0}}
+.hist ul{list-style:none;margin-top:8px}
+.hist li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)}
+.hist li span:first-child{font-weight:600;color:var(--ink)}
+.side-ticket::before{display:none}
+.side-ticket .mono{margin-bottom:8px}
+
+@media (max-width:1080px){.scene{justify-self:center;margin-top:12px}}
+@media (max-width:760px){
+  .hero{padding-bottom:72px}
+  .chip{font-size:12.5px;padding:7px 12px 7px 7px}
+  .chip span{width:26px;height:26px}
+  .chip.c1{left:-4px}.chip.c2{right:-4px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3)::before{display:none}
+  .stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.2)}
+  .cov-list{grid-template-columns:1fr}
+  .coverage{padding:28px 20px}
+  .ph-ic{display:none}
+  .svc-side{border-left:0;border-top:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:reduce){.scene *{animation:none!important}}
+@media (max-width:1080px){.hero-grid{grid-template-columns:1fr}.scene{max-width:520px}}
+</style>
+</head>
+<body class="has-banner" data-page="index">
+<div class="demo-banner" role="note">Concepto de diseño preparado para Emmanuel Logistics Group por Mafe. No es el sitio oficial.</div>
+<aside class="sidebar" aria-label="Navegación">
+  <a class="side-logo" href="emmanuel-inicio.html" aria-label="Emmanuel Logistics Group, inicio">
+    <span class="logo-tile"><span style="text-align:center"><b>EGL</b><small>Grupo logístico</small></span></span>
+    <span class="side-name">Emmanuel<small>Logistics Group</small></span>
+  </a>
+  <nav><ul class="side-nav"><li><a href="emmanuel-inicio.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/></svg>Inicio</a></li><li><a href="emmanuel-nosotros.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 4.5a3.2 3.2 0 0 1 0 6.4M21 20a6 6 0 0 0-4-5.6"/></svg>Quiénes somos</a></li><li><a href="emmanuel-servicios.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>Servicios</a></li><li><a href="emmanuel-politicas.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-4.5"/></svg>Políticas</a></li><li><a href="emmanuel-contacto.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>Contacto</a></li></ul></nav>
+  <div class="side-ticket">
+      <span class="mono">Contacto directo</span>
+      <a href="mailto:info@emmanuellogisticsgroup.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>info@emmanuellogisticsgroup.com</a>
+      <a href="#" data-tbc="Número de teléfono por confirmar con la empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Teléfono [A confirmar]</a>
+      <a href="#" data-tbc="WhatsApp por confirmar con la empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8.4 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.6-1.8-1-1 .8a4 4 0 0 1-2-2l.8-1-1-1.8z"/></svg>WhatsApp [A confirmar]</a>
+    </div>
+</aside>
+<div class="mobile-menu" aria-label="Menú">
+  <nav><ul class="side-nav"><li><a href="emmanuel-inicio.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/></svg>Inicio</a></li><li><a href="emmanuel-nosotros.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 4.5a3.2 3.2 0 0 1 0 6.4M21 20a6 6 0 0 0-4-5.6"/></svg>Quiénes somos</a></li><li><a href="emmanuel-servicios.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>Servicios</a></li><li><a href="emmanuel-politicas.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-4.5"/></svg>Políticas</a></li><li><a href="emmanuel-contacto.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>Contacto</a></li></ul></nav>
+  <a class="btn btn-white" href="emmanuel-contacto.html#cotizar">Solicitar cotización <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <div class="side-ticket">
+      <span class="mono">Contacto directo</span>
+      <a href="mailto:info@emmanuellogisticsgroup.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>info@emmanuellogisticsgroup.com</a>
+      <a href="#" data-tbc="Número de teléfono por confirmar con la empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Teléfono [A confirmar]</a>
+      <a href="#" data-tbc="WhatsApp por confirmar con la empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8.4 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.6-1.8-1-1 .8a4 4 0 0 1-2-2l.8-1-1-1.8z"/></svg>WhatsApp [A confirmar]</a>
+    </div>
+</div>
+<div class="main">
+<header class="topbar site-header">
+  <a class="tb-brand" href="emmanuel-inicio.html"><span class="mini">EGL</span>Emmanuel Logistics Group</a>
+  <div class="tb-right">
+    <a class="l" href="mailto:info@emmanuellogisticsgroup.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>info@emmanuellogisticsgroup.com</a>
+    <a class="btn btn-blue btn-sm" href="emmanuel-contacto.html#cotizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 10 14"/><path d="M21 3 14.5 21l-4.5-7-7-4.5z"/></svg> Contactar</a>
+    <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+<div class="content">
+
+<main id="contenido">
+<section class="hero">
+  <div class="hero-routes" aria-hidden="true"><svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-width="1.5"><path d="M-20 480C200 470 260 330 420 320s240 120 420 60 220-210 400-230"/><path d="M-20 140c160 10 240 120 380 100s200-150 360-130 220 160 500 120"/><circle cx="420" cy="320" r="5" fill="#fff"/><circle cx="840" cy="380" r="5" fill="#fff"/></svg></div>
+  <div class="hero-grid">
+    <div>
+      <span class="tag rv"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i>Barranquilla · Cobertura nacional</span>
+      <h1 class="rv d1">Soluciones logísticas <span>integrales</span> en Colombia</h1>
+      <p class="lead rv d2">En Emmanuel Logistics Group ofrecemos servicios de transporte, distribución y control de reparto con tecnología de punta, eficiencia y seguridad para tu cadena de suministro.</p>
+      <div class="hero-actions rv d3">
+        <a class="btn btn-white" href="emmanuel-servicios.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg> Nuestros servicios</a>
+        <a class="btn btn-line" href="emmanuel-contacto.html#cotizar">Solicitar cotización <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="scene rv d2" aria-hidden="true">
+      <svg viewBox="0 0 560 440" class="scene-svg">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient>
+          <clipPath id="clip"><rect x="0" y="0" width="560" height="440" rx="28"/></clipPath>
+        </defs>
+        <g clip-path="url(#clip)">
+          <rect width="560" height="440" fill="url(#sky)"/>
+          <circle cx="430" cy="96" r="44" fill="#fff" fill-opacity=".12"/>
+          <g class="far"><g fill="#fff" fill-opacity=".10"><rect x="0" y="173" width="41" height="145" rx="3"/><rect x="50" y="168" width="56" height="150" rx="3"/><rect x="119" y="188" width="26" height="130" rx="3"/><rect x="130" y="170" width="4" height="18"/><rect x="152" y="157" width="38" height="161" rx="3"/><rect x="202" y="198" width="56" height="120" rx="3"/><rect x="264" y="167" width="40" height="151" rx="3"/><rect x="282" y="149" width="4" height="18"/><rect x="316" y="154" width="50" height="164" rx="3"/><rect x="339" y="136" width="4" height="18"/><rect x="371" y="151" width="36" height="167" rx="3"/><rect x="411" y="149" width="45" height="169" rx="3"/><rect x="431" y="131" width="4" height="18"/><rect x="464" y="172" width="56" height="146" rx="3"/><rect x="530" y="198" width="53" height="120" rx="3"/><rect x="596" y="231" width="54" height="87" rx="3"/><rect x="655" y="231" width="28" height="87" rx="3"/><rect x="691" y="149" width="53" height="169" rx="3"/><rect x="752" y="184" width="52" height="134" rx="3"/><rect x="817" y="180" width="48" height="138" rx="3"/><rect x="878" y="205" width="40" height="113" rx="3"/><rect x="922" y="171" width="43" height="147" rx="3"/><rect x="971" y="179" width="46" height="139" rx="3"/><rect x="1030" y="157" width="32" height="161" rx="3"/><rect x="1076" y="212" width="43" height="106" rx="3"/><rect x="1095" y="194" width="4" height="18"/></g></g>
+          <g class="near"><g fill="#fff" fill-opacity=".18"><rect x="0" y="219" width="54" height="99" rx="3"/><rect x="67" y="255" width="38" height="63" rx="3"/><rect x="116" y="266" width="37" height="52" rx="3"/><rect x="159" y="210" width="31" height="108" rx="3"/><rect x="204" y="228" width="28" height="90" rx="3"/><rect x="246" y="277" width="36" height="41" rx="3"/><rect x="287" y="274" width="29" height="44" rx="3"/><rect x="299" y="256" width="4" height="18"/><rect x="323" y="219" width="27" height="99" rx="3"/><rect x="334" y="201" width="4" height="18"/><rect x="363" y="212" width="38" height="106" rx="3"/><rect x="380" y="194" width="4" height="18"/><rect x="409" y="278" width="57" height="40" rx="3"/><rect x="477" y="226" width="43" height="92" rx="3"/><rect x="525" y="238" width="42" height="80" rx="3"/><rect x="579" y="275" width="44" height="43" rx="3"/><rect x="599" y="257" width="4" height="18"/><rect x="628" y="265" width="51" height="53" rx="3"/><rect x="689" y="276" width="30" height="42" rx="3"/><rect x="723" y="252" width="39" height="66" rx="3"/><rect x="766" y="230" width="56" height="88" rx="3"/><rect x="832" y="269" width="52" height="49" rx="3"/><rect x="891" y="235" width="43" height="83" rx="3"/><rect x="910" y="217" width="4" height="18"/><rect x="943" y="226" width="26" height="92" rx="3"/><rect x="974" y="247" width="34" height="71" rx="3"/><rect x="1012" y="219" width="29" height="99" rx="3"/><rect x="1047" y="221" width="38" height="97" rx="3"/><rect x="1091" y="229" width="52" height="89" rx="3"/><rect x="1115" y="211" width="4" height="18"/></g></g>
+          <rect y="318" width="560" height="122" fill="#0F2E9E" fill-opacity=".55"/>
+          <rect y="318" width="560" height="4" fill="#fff" fill-opacity=".25"/>
+          <g class="lanes"><g fill="#fff" fill-opacity=".7"><rect x="0" y="392" width="40" height="5" rx="2.5"/><rect x="80" y="392" width="40" height="5" rx="2.5"/><rect x="160" y="392" width="40" height="5" rx="2.5"/><rect x="240" y="392" width="40" height="5" rx="2.5"/><rect x="320" y="392" width="40" height="5" rx="2.5"/><rect x="400" y="392" width="40" height="5" rx="2.5"/><rect x="480" y="392" width="40" height="5" rx="2.5"/><rect x="560" y="392" width="40" height="5" rx="2.5"/><rect x="640" y="392" width="40" height="5" rx="2.5"/><rect x="720" y="392" width="40" height="5" rx="2.5"/><rect x="800" y="392" width="40" height="5" rx="2.5"/><rect x="880" y="392" width="40" height="5" rx="2.5"/><rect x="960" y="392" width="40" height="5" rx="2.5"/><rect x="1040" y="392" width="40" height="5" rx="2.5"/></g></g>
+          <g class="truck">
+            <ellipse cx="270" cy="374" rx="150" ry="8" fill="#000" fill-opacity=".22"/>
+            <rect x="118" y="244" width="232" height="112" rx="10" fill="#fff"/>
+            <rect x="118" y="332" width="232" height="10" fill="#E8EEFF"/>
+            <text x="234" y="298" text-anchor="middle" font-family="Plus Jakarta Sans,Arial" font-weight="800" font-style="italic" font-size="40" fill="#1D4ED8" letter-spacing="-1">EGL</text>
+            <text x="234" y="320" text-anchor="middle" font-family="Plus Jakarta Sans,Arial" font-weight="700" font-size="10" fill="#172B6B" letter-spacing="2.5">EMMANUEL LOGISTICS</text>
+            <path d="M356 274h52c6 0 11 3 14 8l20 30c2 3 3 6 3 10v24c0 6-4 10-10 10h-79z" fill="#1E40AF"/>
+            <path d="M370 284h34l20 30h-54z" fill="#A9C3FF"/>
+            <rect x="350" y="300" width="6" height="56" fill="#172B6B"/>
+            <rect x="430" y="336" width="14" height="8" rx="2" fill="#FFD25E"/>
+            <g class="wheel"><circle cx="170" cy="360" r="20" fill="#0F1B3D"/><circle cx="170" cy="360" r="9" fill="#C9D6FF"/><path d="M170 344v32M154 360h32" stroke="#0F1B3D" stroke-width="3"/></g>
+            <g class="wheel"><circle cx="230" cy="360" r="20" fill="#0F1B3D"/><circle cx="230" cy="360" r="9" fill="#C9D6FF"/><path d="M230 344v32M214 360h32" stroke="#0F1B3D" stroke-width="3"/></g>
+            <g class="wheel"><circle cx="400" cy="360" r="20" fill="#0F1B3D"/><circle cx="400" cy="360" r="9" fill="#C9D6FF"/><path d="M400 344v32M384 360h32" stroke="#0F1B3D" stroke-width="3"/></g>
+            <g class="speed" stroke="#fff" stroke-opacity=".6" stroke-width="3" stroke-linecap="round"><path d="M60 270h40"/><path d="M40 300h60"/><path d="M70 330h30"/></g>
+          </g>
+        </g>
+      </svg>
+      <div class="chip c1"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span>Transporte</div>
+      <div class="chip c2"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/></svg></span>Distribución</div>
+      <div class="chip c3"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-4.5"/></svg></span>Entregas seguras y a tiempo</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-wrap rv">
+  <div class="stats">
+    <div class="stat"><b data-count="10" data-pre="+" data-suf="K">+10K</b><span>Envíos mensuales</span></div>
+    <div class="stat"><b data-count="98" data-suf="%">98%</b><span>Entregas a tiempo</span></div>
+    <div class="stat"><b>24/7</b><span>Soporte</span></div>
+    <div class="stat"><b data-count="5" data-pre="+">+5</b><span>Años de experiencia</span></div>
+  </div>
+  <p class="stats-note">Cifras tomadas del sitio actual <em class="tbc">[A confirmar]</em></p>
+</div>
+
+<section class="block">
+  <div class="sh"><span class="mono rv">Lo que hacemos</span><h2 class="rv d1">Nuestros servicios</h2><p class="rv d2">Una sola empresa para toda tu cadena de suministro, desde tu bodega hasta tu cliente.</p></div>
+  <div class="labels"><a class="svc-c rv d0" href="emmanuel-servicios.html#transporte">
+  <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span>
+  <h3>Transporte</h3><p>Movimiento de carga por carretera entre ciudades, con planeación de ruta y seguimiento del despacho.</p>
+  <span class="go">Ver servicio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a><a class="svc-c rv d1" href="emmanuel-servicios.html#distribucion">
+  <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/></svg></span>
+  <h3>Distribución</h3><p>Entregas a clientes, tiendas y puntos de venta, organizadas por zonas y ventanas de entrega.</p>
+  <span class="go">Ver servicio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a><a class="svc-c rv d2" href="emmanuel-servicios.html#almacenamiento">
+  <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg></span>
+  <h3>Almacenamiento</h3><p>Recepción, custodia e inventario de tu mercancía para que salga cuando la necesitas.</p>
+  <span class="go">Ver servicio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a><a class="svc-c rv d3" href="emmanuel-servicios.html#control-de-reparto">
+  <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/></svg></span>
+  <h3>Control de reparto</h3><p>Supervisión de la última milla: quién entrega, cuándo y con qué soporte.</p>
+  <span class="go">Ver servicio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a></div>
+</section>
+
+<section class="block">
+  <div class="route-card rv">
+    <div class="sh"><span class="mono">Cómo trabajamos</span><h2>De la solicitud a la entrega</h2></div>
+    <div class="route steps">
+      <div class="route-line"><span class="route-fill"></span><span class="route-truck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span></div>
+      <div class="stop"><span class="pin">01</span><div><h3>Solicitud</h3><p>Nos cuentas tipo de carga, volumen, origen, destino y fechas.</p></div></div>
+      <div class="stop"><span class="pin">02</span><div><h3>Planeación</h3><p>Definimos ruta, recursos y tiempos para tu despacho.</p></div></div>
+      <div class="stop"><span class="pin">03</span><div><h3>Ejecución</h3><p>Transporte, distribución o almacenamiento según lo acordado.</p></div></div>
+      <div class="stop"><span class="pin">04</span><div><h3>Entrega</h3><p>Control de reparto y soporte de cada entrega realizada.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="sh"><span class="mono rv">Nuestra esencia</span><h2 class="rv d1">Los pilares que guían nuestra operación</h2></div>
+  <div class="mv">
+    <article class="mv-card rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></span><h3>Misión</h3><p>Brindar soluciones logísticas integrales y eficientes que optimicen la cadena de suministro de nuestros clientes, a través de un equipo comprometido, tecnología de punta y altos estándares de calidad, garantizando entregas seguras y a tiempo en todo el territorio nacional.</p></article>
+    <article class="mv-card rv d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Visión</h3><p>Ser reconocidos para el año 2030 como la empresa líder en soluciones logísticas y control de reparto en Colombia, destacándonos por nuestra innovación, confiabilidad y compromiso con el desarrollo del país y el bienestar de nuestros colaboradores.</p></article>
+  </div>
+</section>
+
+<section class="block">
+  <div class="sh"><span class="mono rv">Conoce nuestra historia</span><h2 class="rv d1">¿Quiénes somos?</h2></div>
+  <div class="about">
+    <div class="about-card rv">
+      <h3>Emmanuel Logistics Group</h3>
+      <p>Somos una empresa colombiana ubicada en Barranquilla, dedicada a ofrecer soluciones logísticas integrales para empresas de todos los sectores. Con años de experiencia en el mercado, nos hemos consolidado como un aliado estratégico para nuestros clientes, ofreciendo servicios de transporte, distribución, almacenamiento y control de reparto con los más altos estándares de calidad.</p>
+      <p>Nuestro equipo humano está comprometido con la excelencia, la innovación y la satisfacción del cliente, respaldados por tecnología de punta y procesos certificados que garantizan operaciones eficientes, seguras y confiables.</p>
+      <a class="btn btn-blue" href="emmanuel-nosotros.html" style="margin-top:6px">Conocer más <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="coverage rv d1" aria-hidden="true">
+      <div class="radar"><span></span><span></span><span></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i></div>
+      <div class="cov-txt"><b>Barranquilla</b><span>Cobertura en todo el territorio nacional</span></div>
+      <ul class="cov-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Transporte</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Distribución</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Almacenamiento</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Control de reparto</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="sh"><span class="mono rv">Antes de cotizar</span><h2 class="rv d1">Preguntas frecuentes</h2></div>
+  <div class="faq rv">
+    <details><summary>¿A qué ciudades llegan?<i></i></summary><p>Operamos desde Barranquilla con cobertura en el territorio nacional. Ciudades y rutas frecuentes: <em class="tbc">[A confirmar]</em></p></details>
+    <details><summary>¿Qué tipo de carga manejan?<i></i></summary><p>Tipos de carga, pesos y restricciones: <em class="tbc">[A confirmar]</em></p></details>
+    <details><summary>¿Puedo hacer seguimiento a mi despacho?<i></i></summary><p>Método de seguimiento (plataforma, reporte por WhatsApp o correo): <em class="tbc">[A confirmar]</em></p></details>
+    <details><summary>¿Cuánto tardan en responder una cotización?<i></i></summary><p>Tiempo de respuesta comercial: <em class="tbc">[A confirmar]</em></p></details>
+  </div>
+</section>
+<section class="block rv">
+  <div class="cta-band">
+    <div class="cta-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h2>¿Listo para optimizar tu logística?</h2>
+    <p>Contáctanos hoy mismo y descubre cómo podemos ayudarte a llevar tu cadena de suministro al siguiente nivel.</p>
+    <a class="btn btn-white" href="emmanuel-contacto.html#cotizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 10 14"/><path d="M21 3 14.5 21l-4.5-7-7-4.5z"/></svg> Solicitar información</a>
+  </div>
+</section>
+
+</main>
+</div>
+<footer class="site-footer on-blue">
+  <div class="ft-grid">
+    <div><h4>Emmanuel Logistics</h4><p>Soluciones logísticas integrales para tu empresa. Transporte, distribución, almacenamiento y control de reparto con calidad y confianza.</p></div>
+    <div><h4>Enlaces rápidos</h4><ul><li><a href="emmanuel-inicio.html">Inicio</a></li><li><a href="emmanuel-nosotros.html">Quiénes somos</a></li><li><a href="emmanuel-servicios.html">Servicios</a></li><li><a href="emmanuel-politicas.html">Políticas</a></li><li><a href="emmanuel-contacto.html">Contacto</a></li></ul></div>
+    <div><h4>Servicios</h4><ul><li><a href="emmanuel-servicios.html#transporte">Transporte</a></li><li><a href="emmanuel-servicios.html#distribucion">Distribución</a></li><li><a href="emmanuel-servicios.html#almacenamiento">Almacenamiento</a></li><li><a href="emmanuel-servicios.html#control-de-reparto">Control de reparto</a></li></ul></div>
+    <div><h4>Contacto</h4><ul>
+      <li>Barranquilla, Colombia · dirección <em class="tbc">[A confirmar]</em></li>
+      <li>Teléfono <em class="tbc">[A confirmar]</em></li>
+      <li><a href="mailto:info@emmanuellogisticsgroup.com">info@emmanuellogisticsgroup.com</a></li>
+      <li>Redes sociales <em class="tbc">[A confirmar]</em></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© <span data-year>2026</span> Emmanuel Logistics Group. Todos los derechos reservados. | Barranquilla, Colombia</span>
+    <span>Concepto de diseño por Mafe. No es el sitio oficial.</span>
+  </div>
+</footer>
+</div>
+<a class="wa-fab" href="#" data-tbc="WhatsApp por confirmar con la empresa" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8.4 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.6-1.8-1-1 .8a4 4 0 0 1-2-2l.8-1-1-1.8z"/></svg></a>
+<nav class="mbar" aria-label="Acciones rápidas">
+  <a href="#" data-tbc="Número de teléfono por confirmar con la empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg> Llamar</a>
+  <a class="wa" href="#" data-tbc="WhatsApp por confirmar con la empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8.4 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.6-1.8-1-1 .8a4 4 0 0 1-2-2l.8-1-1-1.8z"/></svg> WhatsApp</a>
+  <a class="pri" href="emmanuel-contacto.html#cotizar">Cotizar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</nav>
+<script>(() => {
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+  // Header: borde al hacer scroll
+  const header = $('.site-header');
+  const onScroll = () => header && header.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Menú móvil
+  const menuBtn = $('.menu-btn');
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    $$('.mobile-menu a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
+    addEventListener('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('menu-open'); });
+  }
+
+  // Revelado al entrar en pantalla
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.01, rootMargin: '0px 0px -40px 0px' });
+  $$('.rv, .steps').forEach(el => io.observe(el));
+
+  // Toast para datos por confirmar
+  const toast = document.createElement('div');
+  toast.className = 'toast'; toast.setAttribute('role', 'status');
+  document.body.appendChild(toast);
+  let tt;
+  const say = msg => { toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('show'), 2600); };
+  $$('[data-tbc]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); say(a.dataset.tbc); }));
+
+  // Guía de despacho: estados que avanzan
+  const steps = $$('.wb-steps li');
+  if (steps.length) {
+    const dot = $('#wb-dot');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0;
+    const paint = () => {
+      steps.forEach((li, k) => { li.classList.toggle('done', k < i); li.classList.toggle('now', k === i); });
+      if (dot) dot.style.left = Math.min(i / (steps.length - 1), 1) * 100 + '%';
+    };
+    paint();
+    if (!reduce) setInterval(() => { i = (i + 1) % (steps.length + 1); paint(); }, 1600);
+    else { i = steps.length; paint(); }
+  }
+
+  // Pestañas con sección activa (servicios y políticas)
+  const spy = (linkSel, cls) => {
+    const links = $$(linkSel); if (!links.length) return;
+    const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const so = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove(cls));
+        const l = map.get(e.target.id);
+        if (l) { l.classList.add(cls); l.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); }
+      }
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    map.forEach((_, id) => { const s = document.getElementById(id); if (s) so.observe(s); });
+  };
+  spy('.svc-tabs a', 'active');
+  spy('.pol-nav a', 'active');
+
+  // Formulario de cotización por pasos (demo: no envía)
+  const form = $('#quote');
+  if (form) {
+    const fsteps = $$('.fstep', form), bars = $$('.progress i', form);
+    const back = $('[data-back]', form), next = $('[data-next]', form), send = $('[data-send]', form);
+    let cur = 0;
+    const qs = new URLSearchParams(location.search).get('servicio');
+    if (qs) { const r = $(`input[name="servicio"][value="${qs}"]`, form); if (r) r.checked = true; }
+    const show = () => {
+      fsteps.forEach((s, k) => s.classList.toggle('active', k === cur));
+      bars.forEach((b, k) => b.classList.toggle('on', k <= cur));
+      back.hidden = cur === 0; next.hidden = cur === fsteps.length - 1; send.hidden = cur !== fsteps.length - 1;
+    };
+    const valid = () => {
+      const s = fsteps[cur];
+      const req = $$('[required]', s);
+      for (const f of req) { if (!f.checkValidity()) { f.reportValidity(); return false; } }
+      return true;
+    };
+    next.addEventListener('click', () => { if (valid()) { cur++; show(); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
+    back.addEventListener('click', () => { cur--; show(); });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!valid()) return;
+      $('.form-body', form).style.display = 'none';
+      $('.form-done', form).classList.add('show');
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    $('[data-reset]', form)?.addEventListener('click', () => {
+      form.reset(); cur = 0; show();
+      $('.form-body', form).style.display = '';
+      $('.form-done', form).classList.remove('show');
+    });
+    show();
+  }
+
+  // Conteo animado de cifras
+  const counters = $$('[data-count]');
+  if (counters.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const co = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; co.unobserve(e.target);
+      const el = e.target, end = +el.dataset.count, pre = el.dataset.pre || '', suf = el.dataset.suf || '';
+      const t0 = performance.now(), dur = 1600;
+      const tick = t => { const k = Math.min((t - t0) / dur, 1), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+        el.textContent = pre + v + suf; if (k < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    }), { threshold: .4 });
+    counters.forEach(c => { c.textContent = (c.dataset.pre || '') + '0' + (c.dataset.suf || ''); co.observe(c); });
+  }
+
+  // Año en el pie
+  $$('[data-year]').forEach(n => n.textContent = new Date().getFullYear());
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Carbon Wheels · Design concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0b;
+    --paper: #e6e3dc;
+    --mist: #8a8c90;
+    --signal: #ff5a1f;
+    --banner-h: 40px;
+    --header-h: 72px;
+    --ease: cubic-bezier(.16,1,.3,1);
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body { background: var(--ink); color: var(--paper); font-family: var(--body); font-weight: 300; font-size: 15px; line-height: 1.6; padding-top: var(--banner-h); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body.loading { overflow: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; }
+  .tbc { color: var(--signal); }
+  .wrap { width: min(1360px, 100% - 64px); margin-inline: auto; }
+  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; display: flex; gap: 12px; align-items: center; opacity: .7; }
+  .kicker::before { content: ""; width: 6px; height: 6px; background: var(--signal); border-radius: 50%; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 300; font-stretch: 112%; text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; }
+  h2 { font-size: clamp(30px, 3.6vw, 58px); }
+
+  /* Concept banner */
+  .concept { position: fixed; inset: 0 0 auto 0; z-index: 200; height: var(--banner-h); display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; background: #fff6d6; color: #3d2f00; font-size: 13px; font-weight: 400; line-height: 1.25; text-align: center; }
+
+  /* 3D stage */
+  #stage { position: fixed; inset: var(--banner-h) 0 0 0; z-index: 1; pointer-events: none; }
+  #stage canvas { width: 100% !important; height: 100% !important; display: block; }
+  main, footer { position: relative; z-index: 2; }
+
+  /* Viewfinder frame */
+  .frame { position: fixed; inset: calc(var(--banner-h) + 14px) 14px 14px 14px; z-index: 3; pointer-events: none; mix-blend-mode: difference; color: #fff; }
+  .frame i { position: absolute; width: 14px; height: 14px; border-color: rgba(255,255,255,.55); border-style: solid; border-width: 0; }
+  .frame i:nth-child(1) { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+  .frame i:nth-child(2) { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+  .frame i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+  .frame i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+  .cross { position: absolute; width: 15px; height: 15px; opacity: .5; }
+  .cross::before, .cross::after { content: ""; position: absolute; background: #fff; }
+  .cross::before { left: 7px; top: 0; width: 1px; height: 15px; }
+  .cross::after { top: 7px; left: 0; width: 15px; height: 1px; }
+  .frame .coords { position: absolute; right: 22px; bottom: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; opacity: .55; }
+
+  /* Preloader */
+  .loader { position: fixed; inset: var(--banner-h) 0 0 0; z-index: 150; background: var(--ink); display: grid; place-items: center; }
+  .loader svg { width: 120px; height: 120px; transform: rotate(-90deg); }
+  .loader circle { fill: none; stroke-width: 1; }
+  .loader .pct { position: absolute; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--paper); }
+  .loader .lbl { position: absolute; bottom: 40px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--mist); }
+
+  /* Header (difference blend keeps it readable on dark and light) */
+  header.site { position: fixed; top: var(--banner-h); left: 0; right: 0; z-index: 120; height: var(--header-h); color: #fff; mix-blend-mode: difference; }
+  header.site .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .mark { font-family: var(--display); font-stretch: 125%; font-weight: 500; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+  .mark i { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid currentColor; position: relative; }
+  .mark i::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; border: 1px solid currentColor; }
+  nav.main { display: flex; gap: 34px; font-family: var(--display); font-stretch: 115%; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+  nav.main a { position: relative; padding: 6px 0; }
+  nav.main a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .6s var(--ease); }
+  nav.main a:hover::after, nav.main a.open::after { transform: scaleX(1); transform-origin: left; }
+  .hbtn { font-family: var(--display); font-stretch: 115%; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; border: 1px solid currentColor; padding: 10px 18px; border-radius: 999px; }
+
+  /* Mega menu */
+  .mega { position: fixed; top: calc(var(--banner-h) + var(--header-h)); left: 14px; right: 14px; z-index: 119; background: rgba(10,10,11,.92); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.08); clip-path: inset(0 0 100% 0); transition: clip-path .7s var(--ease); }
+  .mega.open { clip-path: inset(0 0 0 0); }
+  .mega .wrap { display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: 24px; padding: 28px 0 32px; }
+  .mega a.item { display: grid; gap: 12px; color: var(--paper); }
+  .mega a.item .ph { aspect-ratio: 1.3; background: radial-gradient(circle at 50% 50%, #1d1e21, #0f1012 70%); border-radius: 4px; display: grid; place-items: center; overflow: hidden; }
+  .mega a.item img { width: 62%; transition: transform 1.2s var(--ease); }
+  .mega a.item:hover img { transform: rotate(140deg) scale(1.06); }
+  .mega a.item b { font-family: var(--display); font-stretch: 115%; font-weight: 400; font-size: 18px; text-transform: uppercase; letter-spacing: .04em; }
+  .mega .media { border: 1px dashed rgba(255,255,255,.18); border-radius: 4px; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--mist); font-size: 13px; }
+
+  /* Chapter rail */
+  .rail-nav { position: fixed; left: 30px; top: 50%; transform: translateY(-50%); z-index: 110; display: grid; gap: 64px; mix-blend-mode: difference; color: #fff; }
+  .rail-nav::before { content: ""; position: absolute; left: -12px; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,.2); }
+  .rail-nav .bar { position: absolute; left: -12px; top: 0; width: 1px; height: 100%; background: #fff; transform-origin: top; transform: scaleY(0); }
+  .rail-nav a { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .4; transition: opacity .4s; line-height: 1.5; }
+  .rail-nav a span { display: block; opacity: .6; }
+  .rail-nav a.on { opacity: 1; }
+
+  /* Sections */
+  section { position: relative; }
+  .dark { color: var(--paper); }
+  .light { color: var(--ink); }
+  .sticky { position: sticky; top: calc(var(--banner-h) + var(--header-h)); height: calc(100svh - var(--banner-h) - var(--header-h)); display: flex; align-items: center; }
+  .copy { max-width: 440px; }
+  .copy h2 { margin: 18px 0 22px; }
+  .copy p { font-size: 15px; opacity: .78; }
+  .right { margin-left: auto; margin-right: 6vw; }
+  .left { margin-left: max(8vw, 190px); }
+  .btn { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; height: 44px; padding: 0 22px; border-radius: 999px; font-family: var(--display); font-stretch: 115%; font-weight: 500; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border: 1px solid currentColor; position: relative; overflow: hidden; isolation: isolate; cursor: pointer; background: none; color: inherit; }
+  .btn::before { content: ""; position: absolute; inset: -1px; z-index: -1; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .6s var(--ease); }
+  .btn span { mix-blend-mode: difference; color: #fff; }
+  .btn:hover::before { transform: scaleX(1); transform-origin: left; }
+  .btn.solid { background: var(--signal); border-color: var(--signal); color: #1a0700; }
+  .btn.solid span { mix-blend-mode: normal; color: #1a0700; }
+  .btn.solid::before { background: #fff; }
+
+  /* Hero */
+  .hero { height: calc(100svh - var(--banner-h)); }
+  .hero .inner { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+  .hero .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .6; margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(38px, 5.2vw, 84px); font-weight: 300; font-stretch: 118%; text-shadow: 0 2px 30px rgba(0,0,0,.5); }
+  .hero h1 em { font-style: normal; color: var(--signal); }
+  .hero .sub { margin: 22px auto 0; max-width: 380px; opacity: .8; font-size: 14px; text-shadow: 0 1px 12px #000, 0 0 2px #000; }
+  .hero .scroll { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; opacity: .55; }
+  .hero .scroll i { width: 1px; height: 42px; background: rgba(255,255,255,.2); position: relative; overflow: hidden; }
+  .hero .scroll i::after { content: ""; position: absolute; inset: 0; background: #fff; animation: drip 2s var(--ease) infinite; }
+  @keyframes drip { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
+
+  .s-phil { height: 170vh; }
+  .s-explode { height: 220vh; }
+  .s-road, .s-gravel { height: 150vh; }
+  .s-tri { height: 170vh; }
+
+  /* Exploded callouts */
+  .callouts { position: fixed; inset: 0; z-index: 4; pointer-events: none; }
+  .callouts svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .callouts line { stroke: var(--ink); stroke-width: 1; }
+  .callouts circle { fill: var(--signal); }
+  .co { position: absolute; left: 0; top: 0; width: 210px; color: var(--ink); opacity: 0; will-change: transform; }
+  .co .mono { color: var(--signal); }
+  .co b { display: block; font-family: var(--display); font-stretch: 115%; font-weight: 500; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; margin: 4px 0 2px; }
+  .co p { font-size: 13px; opacity: .7; }
+
+  /* Discipline readout */
+  .spec { margin-top: 26px; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 6px 34px; border-top: 1px solid currentColor; padding-top: 16px; }
+  .spec dt { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .55; }
+  .spec dd { font-family: var(--display); font-stretch: 112%; font-size: 14px; }
+  .big-num { font-family: var(--display); font-weight: 200; font-stretch: 62%; font-size: clamp(120px, 16vw, 260px); line-height: .8; opacity: .08; position: absolute; right: 4vw; bottom: 4vh; }
+
+  /* Lineup */
+  .s-lineup { padding: 22vh 0 18vh; }
+  .lineup-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 56px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .card { position: relative; background: #eeede8; padding: 28px 28px 32px; display: flex; flex-direction: column; min-height: 560px; overflow: hidden; }
+  .card .img { flex: 1; display: grid; place-items: center; min-height: 300px; }
+  .card img { width: 74%; transition: transform 1.6s var(--ease); filter: drop-shadow(0 30px 30px rgba(0,0,0,.18)); }
+  .card:hover img { transform: rotate(160deg) scale(1.04); }
+  .card .top { display: flex; justify-content: space-between; }
+  .card h3 { font-size: 24px; font-weight: 400; margin: 10px 0 14px; }
+  .card ul { list-style: none; font-size: 13px; display: grid; gap: 6px; }
+  .card ul li { display: flex; justify-content: space-between; border-top: 1px solid rgba(0,0,0,.12); padding-top: 6px; }
+  .card .btn { align-self: flex-start; }
+
+  /* Statement */
+  .s-statement { height: 220vh; }
+  .s-statement .sticky { justify-content: center; text-align: center; }
+  .s-statement h2 { font-size: clamp(44px, 7.6vw, 132px); font-weight: 200; font-stretch: 118%; line-height: .95; }
+  .s-statement h2 em { font-style: normal; color: var(--signal); }
+  .media-tag { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .55; border: 1px dashed currentColor; padding: 6px 10px; border-radius: 3px; white-space: nowrap; }
+
+  /* Contact */
+  .s-contact { padding: 20vh 0 16vh; background: var(--ink); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-grid > div > p { opacity: .7; margin: 0 0 32px; max-width: 42ch; }
+  .facts { display: grid; font-size: 14px; }
+  .facts div { display: flex; gap: 14px; border-top: 1px solid rgba(255,255,255,.12); padding: 12px 0; }
+  .facts span:first-child { width: 110px; flex-shrink: 0; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .55; padding-top: 3px; }
+  form { display: grid; gap: 22px; }
+  label { display: grid; gap: 4px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+  input, select, textarea { font: inherit; font-family: var(--body); font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--paper); background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,.2); padding: 10px 0; outline: none; transition: border-color .3s; border-radius: 0; }
+  select option { color: #000; }
+  input:focus, select:focus, textarea:focus { border-color: var(--signal); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .form-note { font-size: 13px; color: var(--signal); min-height: 1.4em; }
+
+  footer { background: var(--ink); color: var(--mist); font-size: 13px; overflow: hidden; }
+  .news { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: end; padding: 64px 0; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 48px; color: var(--paper); }
+  .news h3 { font-size: clamp(26px, 3vw, 40px); }
+  .news form { display: flex; gap: 16px; align-items: end; flex-wrap: wrap; }
+  .news input { min-width: 280px; }
+  .news .btn { margin-top: 0; }
+  .news .form-note { width: 100%; }
+  .foot-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 32px; margin-bottom: 40px; }
+  .foot-grid h4 { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--paper); margin-bottom: 14px; font-weight: 400; }
+  .foot-grid ul { list-style: none; display: grid; gap: 8px; }
+  .foot-grid a:hover { color: var(--paper); }
+  .foot-base { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 12px; }
+  .giant { font-family: var(--display); font-weight: 200; font-stretch: 125%; text-transform: uppercase; white-space: nowrap; font-size: 9.6vw; line-height: .9; text-align: center; margin-top: 56px; padding-bottom: 60px; color: transparent; -webkit-text-stroke: 1px #2c2d31; }
+  .giant span { display: inline-block; }
+
+  .mbar { display: none; }
+
+  @media (max-width: 980px) {
+    :root { --header-h: 60px; }
+    .wrap { width: calc(100% - 32px); }
+    nav.main, .rail-nav, .hbtn { display: none; }
+    .frame { inset: calc(var(--banner-h) + 8px) 8px 8px 8px; }
+    .sticky { align-items: flex-end; padding-bottom: 92px; }
+    .copy, .right, .left { margin: 0; max-width: none; width: 100%; padding: 50px 20px 0; }
+    .light .copy { background: linear-gradient(180deg, rgba(230,227,220,0), rgba(230,227,220,.94) 34%); }
+    .dark .copy { background: linear-gradient(180deg, rgba(10,10,11,0), rgba(10,10,11,.9) 34%); }
+    .copy h2 { font-size: 30px; margin: 12px 0 14px; }
+    .copy p { font-size: 14px; }
+    .hero .inner { place-items: end center; padding: 0 20px 110px; }
+    .hero .scroll { display: none; }
+    .big-num { display: none; }
+    .cards { grid-template-columns: 1fr; }
+    .card { min-height: 0; }
+    .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .foot-grid > div:first-child { grid-column: 1 / -1; }
+    .co { width: 130px; }
+    .co p { display: none; }
+    .co b { font-size: 12px; }
+  }
+  @media (max-width: 640px) {
+    :root { --banner-h: 52px; }
+    .concept { font-size: 12px; flex-direction: column; gap: 0; }
+    .hero h1 { font-size: 34px; }
+    .row2 { grid-template-columns: 1fr; }
+    .news input { min-width: 0; }
+    .giant { padding-bottom: 110px; }
+    .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 140; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(10,10,11,.94); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,.1); color: var(--paper); }
+    .mbar .btn { flex: 1; justify-content: center; margin: 0; height: 46px; font-size: 11px; letter-spacing: .1em; padding: 0 10px; white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero .scroll i::after { animation: none; }
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body class="loading">
+<script>
+  // Name shown in the concept banner
+  const DESIGNER_NAME = "Mafe";
+  // Brand name: replace when the client shares it
+  const BRAND = "[Your Brand]";
+</script>
+
+<div class="concept" role="note">
+  <span>Design concept prepared for <span data-brand></span>. Not the official website.</span>
+  <strong>Design: <span data-designer></span></strong>
+</div>
+
+<div class="loader" aria-hidden="true">
+  <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" stroke="#26272b"/><circle id="ring" cx="60" cy="60" r="56" stroke="#e6e3dc" stroke-dasharray="351.9" stroke-dashoffset="351.9"/></svg>
+  <span class="pct" id="pct">000</span>
+  <span class="lbl">Assembling</span>
+</div>
+
+<div id="stage" aria-hidden="true"></div>
+
+<div class="frame" aria-hidden="true">
+  <i></i><i></i><i></i><i></i>
+  <span class="cross" style="left:50%;top:22%"></span>
+  <span class="cross" style="left:18%;top:62%"></span>
+  <span class="cross" style="right:16%;top:40%"></span>
+  <span class="coords" id="coords">RPM 000</span>
+</div>
+
+<header class="site" id="top">
+  <div class="wrap">
+    <a href="#top" class="mark" aria-label="Home"><i></i><span data-brand></span></a>
+    <nav class="main" aria-label="Main">
+      <a href="#road" data-mega>Wheels</a>
+      <a href="#engineering">Technology</a>
+      <a href="#lineup">Lineup</a>
+      <a href="#dealers">Dealers</a>
+    </nav>
+    <a href="#dealers" class="hbtn">Contact</a>
+  </div>
+</header>
+
+<div class="mega" id="mega">
+  <div class="wrap">
+    <a class="item" href="#road"><span class="ph"><img data-snap="road" alt=""></span><span class="mono">01 · Road</span><b class="tbc">[Model name]</b></a>
+    <a class="item" href="#gravel"><span class="ph"><img data-snap="gravel" alt=""></span><span class="mono">02 · Gravel</span><b class="tbc">[Model name]</b></a>
+    <a class="item" href="#triathlon"><span class="ph"><img data-snap="tri" alt=""></span><span class="mono">03 · Triathlon</span><b class="tbc">[Model name]</b></a>
+    <div class="media">Featured video or rider photo<br>goes here</div>
+  </div>
+</div>
+
+<nav class="rail-nav" aria-label="Chapters">
+  <span class="bar" id="railbar"></span>
+  <a href="#philosophy"><span>01</span>Philosophy</a>
+  <a href="#engineering"><span>02</span>Engineering</a>
+  <a href="#road"><span>03</span>Disciplines</a>
+  <a href="#lineup"><span>04</span>Lineup</a>
+</nav>
+
+<div class="callouts" aria-hidden="true">
+  <svg><line id="l0"/><line id="l1"/><line id="l2"/><circle id="d0" r="3"/><circle id="d1" r="3"/><circle id="d2" r="3"/></svg>
+  <div class="co" id="c0"><span class="mono">A · Tire</span><b>Tire system</b><p>Tubeless, sizes and pressures: <span class="tbc">[To confirm]</span></p></div>
+  <div class="co" id="c1"><span class="mono">B · Rim</span><b>Carbon rim</b><p>Layup, depth and internal width: <span class="tbc">[To confirm]</span></p></div>
+  <div class="co" id="c2"><span class="mono">C · Hub</span><b>Hub &amp; spokes</b><p>Hub system and spoke count: <span class="tbc">[To confirm]</span></p></div>
+</div>
+
+<main>
+  <section class="hero dark" data-k="0">
+    <div class="inner">
+      <div>
+        <p class="eyebrow">Carbon wheels · Road · Gravel · Triathlon</p>
+        <h1 data-scramble>Every second<br><em>counts</em></h1>
+        <p class="sub">Race wheels engineered for the riders who measure everything.</p>
+        <a href="#lineup" class="btn"><span>Explore wheels</span></a>
+      </div>
+    </div>
+    <div class="scroll"><span>Scroll</span><i></i></div>
+  </section>
+
+  <section class="s-phil light" id="philosophy" data-k="1">
+    <div class="sticky">
+      <div class="copy right">
+        <p class="kicker">01 · Philosophy</p>
+        <h2 data-scramble>Every gram<br>is a decision</h2>
+        <p>Your brand story goes here: why the wheels exist, who builds them and what makes them faster. Real details to be confirmed with the client.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-explode light" id="engineering" data-k="2">
+    <div class="sticky">
+      <div class="copy left">
+        <p class="kicker">02 · Engineering</p>
+        <h2 data-scramble>Taken apart.<br>Built faster.</h2>
+        <p>Every part of the wheel, in view. Tire, rim, spokes and hub engineered as one system.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-road light" id="road" data-k="3">
+    <div class="sticky">
+      <div class="copy right">
+        <p class="kicker">03 · Road</p>
+        <h2 data-scramble>Built for<br>the breakaway</h2>
+        <p>A deep, aero rim profile that holds speed on the flats and answers instantly when you attack.</p>
+        <dl class="spec"><dt>Depth</dt><dt>Weight</dt><dt>Int. width</dt><dd class="tbc">[To confirm]</dd><dd class="tbc">[To confirm]</dd><dd class="tbc">[To confirm]</dd></dl>
+      </div>
+      <span class="big-num">03</span>
+    </div>
+  </section>
+
+  <section class="s-gravel light" id="gravel" data-k="4">
+    <div class="sticky">
+      <div class="copy right">
+        <p class="kicker">04 · Gravel</p>
+        <h2 data-scramble>Made for<br>the rough</h2>
+        <p>A wider, lower profile for big tires, broken roads and long days where control matters as much as speed.</p>
+        <dl class="spec"><dt>Depth</dt><dt>Weight</dt><dt>Int. width</dt><dd class="tbc">[To confirm]</dd><dd class="tbc">[To confirm]</dd><dd class="tbc">[To confirm]</dd></dl>
+      </div>
+      <span class="big-num">04</span>
+    </div>
+  </section>
+
+  <section class="s-tri light" id="triathlon" data-k="5">
+    <div class="sticky">
+      <div class="copy right">
+        <p class="kicker">05 · Triathlon</p>
+        <h2 data-scramble>Against<br>the clock</h2>
+        <p>Disc and ultra-deep profiles for time trials and triathlon, where every watt saved shows up on the results sheet.</p>
+        <dl class="spec"><dt>Profile</dt><dt>Weight</dt><dt>Int. width</dt><dd class="tbc">[To confirm]</dd><dd class="tbc">[To confirm]</dd><dd class="tbc">[To confirm]</dd></dl>
+      </div>
+      <span class="big-num">05</span>
+    </div>
+  </section>
+
+  <section class="s-lineup light" id="lineup" data-k="6">
+    <div class="wrap">
+      <div class="lineup-head">
+        <div>
+          <p class="kicker">06 · Lineup</p>
+          <h2 data-scramble style="margin-top:18px">Choose<br>your weapon</h2>
+        </div>
+        <p style="max-width:340px;opacity:.7">Model names, prices and specs are placeholders until the client confirms them.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="top"><span class="mono">01 · Road</span><span class="mono">Aero</span></div>
+          <div class="img"><img data-snap="road" alt="Road wheel render"></div>
+          <h3 class="tbc">[Model name]</h3>
+          <ul><li><span>Depth</span><span class="tbc">[To confirm]</span></li><li><span>Weight</span><span class="tbc">[To confirm]</span></li><li><span>Price</span><span class="tbc">[To confirm]</span></li></ul>
+          <a href="#dealers" class="btn"><span>Learn more</span></a>
+        </article>
+        <article class="card">
+          <div class="top"><span class="mono">02 · Gravel</span><span class="mono">Wide</span></div>
+          <div class="img"><img data-snap="gravel" alt="Gravel wheel render"></div>
+          <h3 class="tbc">[Model name]</h3>
+          <ul><li><span>Depth</span><span class="tbc">[To confirm]</span></li><li><span>Weight</span><span class="tbc">[To confirm]</span></li><li><span>Price</span><span class="tbc">[To confirm]</span></li></ul>
+          <a href="#dealers" class="btn"><span>Learn more</span></a>
+        </article>
+        <article class="card">
+          <div class="top"><span class="mono">03 · Triathlon</span><span class="mono">Disc</span></div>
+          <div class="img"><img data-snap="tri" alt="Disc wheel render"></div>
+          <h3 class="tbc">[Model name]</h3>
+          <ul><li><span>Profile</span><span class="tbc">[To confirm]</span></li><li><span>Weight</span><span class="tbc">[To confirm]</span></li><li><span>Price</span><span class="tbc">[To confirm]</span></li></ul>
+          <a href="#dealers" class="btn"><span>Learn more</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-statement dark" data-k="7">
+    <div class="sticky">
+      <h2 data-scramble style="width:100%">Less weight.<br><em>More race.</em></h2>
+      <span class="media-tag">Race footage of your riders goes here</span>
+    </div>
+  </section>
+
+  <section class="s-contact dark" id="dealers" data-k="8">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="kicker">07 · Dealers &amp; contact</p>
+        <h2 data-scramble style="margin:18px 0 22px">Ride them<br>yourself</h2>
+        <p>Find an authorized dealer near you, ask which wheel fits your racing, or talk to us about becoming a dealer.</p>
+        <div class="facts">
+          <div><span>Email</span><span class="tbc">[To confirm]</span></div>
+          <div><span>Phone</span><span class="tbc">[To confirm]</span></div>
+          <div><span>Location</span><span class="tbc">[To confirm]</span></div>
+          <div><span>Payment</span><span>PayPal</span></div>
+        </div>
+      </div>
+      <form data-demo-form novalidate>
+        <div class="row2">
+          <label>Name<input type="text" name="name" autocomplete="name"></label>
+          <label>Email<input type="email" name="email" autocomplete="email"></label>
+        </div>
+        <label>I'm interested in
+          <select name="topic"><option>Road wheels</option><option>Gravel wheels</option><option>Triathlon wheels</option><option>Becoming a dealer</option></select>
+        </label>
+        <label>Message<textarea name="msg" rows="3"></textarea></label>
+        <div><button class="btn solid" type="submit"><span>Send message</span></button></div>
+        <p class="form-note" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="news">
+      <h3>First to the<br>start line</h3>
+      <form data-demo-form novalidate>
+        <label style="flex:1">Email<input type="email" placeholder="you@email.com"></label>
+        <button class="btn" type="submit"><span>Subscribe</span></button>
+        <p class="form-note" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="mark" style="color:var(--paper)"><i></i><span data-brand></span></a>
+        <p style="margin-top:14px;max-width:32ch">Carbon wheels for road, gravel and triathlon.</p>
+      </div>
+      <div><h4>Wheels</h4><ul><li><a href="#road">Road</a></li><li><a href="#gravel">Gravel</a></li><li><a href="#triathlon">Triathlon</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#engineering">Technology</a></li><li><a href="#dealers">Dealers</a></li><li><a href="#dealers">Contact</a></li></ul></div>
+      <div><h4>Follow</h4><ul><li class="tbc">[Instagram to confirm]</li><li class="tbc">[Strava to confirm]</li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="yr"></span> <span data-brand></span></span>
+      <span>Design concept by <span data-designer></span>. Not the official website.</span>
+    </div>
+  </div>
+  <div class="giant" aria-hidden="true" data-giant></div>
+</footer>
+
+<div class="mbar">
+  <a href="#lineup" class="btn solid"><span>Explore wheels</span></a>
+  <a href="#dealers" class="btn"><span>Find a dealer</span></a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module">
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+document.querySelectorAll("[data-brand]").forEach(el => el.textContent = BRAND);
+document.querySelectorAll("[data-designer]").forEach(el => el.textContent = DESIGNER_NAME);
+document.getElementById("yr").textContent = new Date().getFullYear();
+document.title = BRAND + " · Design concept";
+document.querySelector("[data-giant]").innerHTML = [...BRAND.replace(/[\[\]]/g, "")].map(c => `<span>${c === " " ? "&nbsp;" : c}</span>`).join("");
+
+document.querySelectorAll("[data-demo-form]").forEach(f => f.addEventListener("submit", e => {
+  e.preventDefault();
+  f.querySelector(".form-note").textContent = "This is a design demo. The form doesn't send messages yet.";
+}));
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobile = matchMedia("(max-width: 980px)").matches;
+gsap.registerPlugin(ScrollTrigger);
+
+/* ================= 3D wheel ================= */
+const stage = document.getElementById("stage");
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 1.75));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), .04).texture;
+const camera = new THREE.PerspectiveCamera(30, 1, .1, 100);
+camera.position.set(0, 0, 5.2);
+
+const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(3, 4, 5); scene.add(key);
+const rimLight = new THREE.PointLight(0xff5a1f, 6, 8); rimLight.position.set(-2.5, -1.5, -1.5); scene.add(rimLight);
+
+// carbon twill texture
+function carbonTexture() {
+  const c = document.createElement("canvas"); c.width = c.height = 128;
+  const g = c.getContext("2d"), s = 16;
+  for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
+    const on = (x + y) % 4 < 2;
+    const grd = on ? g.createLinearGradient(x * s, y * s, x * s + s, y * s) : g.createLinearGradient(x * s, y * s, x * s, y * s + s);
+    grd.addColorStop(0, on ? "#1a1a1c" : "#0e0e10"); grd.addColorStop(.5, on ? "#2e2f33" : "#1d1e21"); grd.addColorStop(1, on ? "#1a1a1c" : "#0e0e10");
+    g.fillStyle = grd; g.fillRect(x * s, y * s, s, s);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(160, 3); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return t;
+}
+const carbon = new THREE.MeshPhysicalMaterial({ map: carbonTexture(), roughness: .38, metalness: .15, clearcoat: 1, clearcoatRoughness: .07 });
+const rubber = new THREE.MeshStandardMaterial({ color: 0x0c0c0d, roughness: .85 });
+const alloy = new THREE.MeshStandardMaterial({ color: 0x1c1c1f, roughness: .28, metalness: .9 });
+const steel = new THREE.MeshStandardMaterial({ color: 0x9a9da4, roughness: .3, metalness: 1 });
+const accent = new THREE.MeshStandardMaterial({ color: 0xff5a1f, roughness: .35, metalness: .3, emissive: 0x3a0e00 });
+
+const R = .965, W = .0135;
+const tilt = new THREE.Group(); scene.add(tilt);     // position and tilt per section
+const spin = new THREE.Group(); tilt.add(spin);       // spins on the axle
+
+const tire = new THREE.Mesh(new THREE.TorusGeometry(.992, .03, 24, 200), rubber);
+spin.add(tire);
+
+function rimGeometry(depth) {
+  const pts = [], n = 18;
+  for (let i = 0; i <= n; i++) { const t = i / n; pts.push(new THREE.Vector2(R - depth * t, W * (1 - .62 * Math.pow(t, 1.4)))); }
+  for (let i = n; i >= 0; i--) { const t = i / n; pts.push(new THREE.Vector2(R - depth * t, -W * (1 - .62 * Math.pow(t, 1.4)))); }
+  pts.push(new THREE.Vector2(R, W));
+  const geo = new THREE.LatheGeometry(pts, 200);
+  geo.rotateX(Math.PI / 2);
+  return geo;
+}
+const rim = new THREE.Mesh(rimGeometry(.2), carbon); spin.add(rim);
+
+// brand decal drawn along the rim on both faces
+const decalCanvas = document.createElement("canvas"); decalCanvas.width = decalCanvas.height = 1024;
+const decalTex = new THREE.CanvasTexture(decalCanvas); decalTex.colorSpace = THREE.SRGBColorSpace; decalTex.anisotropy = 8;
+const decalMat = new THREE.MeshBasicMaterial({ map: decalTex, transparent: true, depthWrite: false, toneMapped: false });
+const decalF = new THREE.Mesh(new THREE.PlaneGeometry(2.1, 2.1), decalMat); decalF.position.z = W + .0015;
+const decalB = decalF.clone(); decalB.rotation.y = Math.PI; decalB.position.z = -W - .0015;
+rim.add(decalF, decalB);
+function drawDecal(depth) {
+  const g = decalCanvas.getContext("2d"), px = 1024 / 2.1;
+  g.clearRect(0, 0, 1024, 1024);
+  const disc = depth > .5;
+  const r = (disc ? .62 : R - depth * .5) * px;
+  const size = Math.min(disc ? .075 : depth * .42, .07) * px;
+  g.save(); g.translate(512, 512);
+  g.font = `600 ${size}px Archivo, Arial, sans-serif`; g.textBaseline = "middle"; g.fillStyle = "#ff5a1f";
+  const text = BRAND.toUpperCase().replace(/[\[\]]/g, "");
+  for (const start of [-Math.PI * .95, Math.PI * .05]) {
+    let a = start;
+    for (const ch of text) { const w = g.measureText(ch).width; g.save(); g.rotate(a + w / r / 2); g.translate(0, -r); g.fillText(ch, -w / 2, 0); g.restore(); a += (w + size * .22) / r; }
+  }
+  g.restore();
+  decalTex.needsUpdate = true;
+}
+
+// hub
+const hub = new THREE.Group(); spin.add(hub);
+const shell = new THREE.Mesh(new THREE.CylinderGeometry(.034, .04, .11, 48), alloy); shell.rotation.x = Math.PI / 2; hub.add(shell);
+for (const s of [-1, 1]) {
+  const fl = new THREE.Mesh(new THREE.CylinderGeometry(.078, .078, .007, 48), alloy); fl.rotation.x = Math.PI / 2; fl.position.z = .036 * s; hub.add(fl);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(.022, .022, .016, 32), accent); cap.rotation.x = Math.PI / 2; cap.position.z = .062 * s; hub.add(cap);
+}
+// spokes
+const SPOKES = 24, spokes = new THREE.Group(); spin.add(spokes);
+const spokeGeo = new THREE.CylinderGeometry(.0032, .0032, 1, 6);
+const spokeData = [];
+for (let i = 0; i < SPOKES; i++) {
+  const m = new THREE.Mesh(spokeGeo, steel); spokes.add(m);
+  spokeData.push({ m, a: i / SPOKES * Math.PI * 2, s: i % 2 ? 1 : -1, f: .7 + ((i * 37) % 11) / 18 });
+}
+const up = new THREE.Vector3(0, 1, 0), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpD = new THREE.Vector3();
+function layoutSpokes(depth, ex) {
+  const inner = R - depth + .004;
+  spokes.visible = depth < .55;
+  for (const d of spokeData) {
+    const b = d.a + .13 * d.s, push = ex * d.f;
+    tmpA.set(Math.cos(b) * .072, Math.sin(b) * .072, .036 * d.s);
+    tmpB.set(Math.cos(d.a) * inner, Math.sin(d.a) * inner, 0);
+    // exploded: spokes fan outwards and forward
+    tmpA.x += Math.cos(d.a) * .18 * push; tmpA.y += Math.sin(d.a) * .18 * push; tmpA.z += (.12 + .1 * d.s) * push;
+    tmpB.x += Math.cos(d.a) * .12 * push; tmpB.y += Math.sin(d.a) * .12 * push; tmpB.z += .12 * push;
+    tmpD.subVectors(tmpB, tmpA);
+    d.m.position.copy(tmpA).addScaledVector(tmpD, .5);
+    d.m.scale.set(1, tmpD.length(), 1);
+    d.m.quaternion.setFromUnitVectors(up, tmpD.normalize());
+  }
+}
+
+/* ---------- state + keyframes, one per section ---------- */
+const S = { px: 0, py: 0, rx: 0, ry: 0, s: 1, ex: 0, depth: .2, bg: 0, sp: 1 };
+const DESK = [
+  { px: 0,     py: -.05, rx: -.18, ry: -.42, s: 1.0,  ex: 0, depth: .2,  bg: 0, sp: 1 },   // hero
+  { px: -1.05, py: -.15, rx: .12,  ry: .95,  s: 1.85, ex: 0, depth: .2,  bg: 1, sp: .6 },  // philosophy close-up
+  { px: .55,   py: 0,    rx: -.32, ry: -1.02,s: .95,  ex: 1, depth: .2,  bg: 1, sp: .25 }, // exploded
+  { px: -1.0,  py: 0,    rx: -.05, ry: -.32, s: 1.05, ex: 0, depth: .2,  bg: 1, sp: 1 },   // road
+  { px: -1.0,  py: 0,    rx: .05,  ry: .3,   s: 1.05, ex: 0, depth: .11, bg: 1, sp: 1 },   // gravel
+  { px: -1.0,  py: 0,    rx: -.1,  ry: -.35, s: 1.05, ex: 0, depth: .89, bg: 1, sp: 1.4 }, // triathlon disc
+  { px: 0,     py: 2.9,  rx: .6,   ry: -.2,  s: .8,   ex: 0, depth: .2,  bg: 1, sp: 1 },   // lineup (off screen)
+  { px: 0,     py: 0,    rx: 1.12, ry: .18,  s: 1.75, ex: 0, depth: .2,  bg: 0, sp: 9 },   // statement
+  { px: 0,     py: -3.2, rx: 1.3,  ry: .2,   s: 1.4,  ex: 0, depth: .2,  bg: 0, sp: 4 },   // contact (off screen)
+];
+const K = DESK.map(k => !mobile ? k : { ...k, px: 0, py: Math.abs(k.py) > 2 ? k.py : .42, s: k.s * .62 });
+if (mobile) { K[0].py = .36; K[0].s = .7; K[1].s = .95; K[2].s = .6; K[7].py = .05; K[7].s = 1.0; }
+Object.assign(S, K[0]);
+
+const bgDark = new THREE.Color(0x0a0a0b), bgLight = new THREE.Color(0xe6e3dc), bgMix = new THREE.Color();
+const M = { x: 0, y: 0 };   // mouse parallax
+let lastDepth = -1;
+function apply() {
+  tilt.position.set(S.px, S.py, 0);
+  tilt.rotation.set(S.rx + M.y * .18, S.ry + M.x * .25, 0);
+  tilt.scale.setScalar(S.s);
+  if (Math.abs(S.depth - lastDepth) > .002) {
+    rim.geometry.dispose(); rim.geometry = rimGeometry(S.depth);
+    drawDecal(S.depth); lastDepth = S.depth;
+  }
+  tire.position.z = S.ex * .55; tire.scale.set(1 + S.ex * .04, 1 + S.ex * .04, .8);
+  rim.position.z = S.ex * .28;
+  hub.position.z = -S.ex * .5;
+  layoutSpokes(S.depth, S.ex);
+  bgMix.copy(bgDark).lerp(bgLight, S.bg);
+  document.body.style.backgroundColor = "#" + bgMix.getHexString();
+}
+
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener("resize", resize); resize();
+
+/* ---------- product renders for the cards and menu ---------- */
+function snapshot(depth) {
+  const keep = { ...S }, w = stage.clientWidth, h = stage.clientHeight;
+  Object.assign(S, { px: 0, py: 0, rx: -.12, ry: -.38, s: 1, ex: 0, depth });
+  apply(); spin.rotation.z = 0;
+  renderer.setSize(640, 640, false); camera.aspect = 1; camera.updateProjectionMatrix();
+  renderer.render(scene, camera);
+  const url = renderer.domElement.toDataURL("image/png");
+  Object.assign(S, keep); renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  return url;
+}
+function makeSnaps() {
+  const snaps = { road: snapshot(.2), gravel: snapshot(.11), tri: snapshot(.89) };
+  document.querySelectorAll("[data-snap]").forEach(img => img.src = snaps[img.dataset.snap]);
+  lastDepth = -1; apply();
+}
+makeSnaps();
+document.fonts && document.fonts.ready.then(() => { lastDepth = -1; makeSnaps(); });
+
+/* ================= Smooth scroll ================= */
+const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+lenis.stop();
+let vel = 0; lenis.on("scroll", e => { vel = e.velocity; });
+const mega = document.getElementById("mega");
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+  const id = a.getAttribute("href"); const t = id === "#top" ? 0 : document.querySelector(id);
+  if (t === null) return; e.preventDefault(); mega.classList.remove("open"); lenis.scrollTo(t, { duration: 2 });
+}));
+
+/* ================= Render loop ================= */
+const coords = document.getElementById("coords");
+const callouts = [0, 1, 2].map(i => ({ el: document.getElementById("c" + i), ln: document.getElementById("l" + i), dot: document.getElementById("d" + i) }));
+const anchors = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()], P = new THREE.Vector3();
+let exploreOn = 0, rpm = 0;
+gsap.ticker.add((time, dt) => {
+  const boost = Math.min(Math.abs(vel), 80);
+  const speed = reduce ? 0 : (.35 + boost * .05) * S.sp;
+  spin.rotation.z -= speed * Math.min(dt, 50) / 1000;
+  rpm += (speed * 9.55 - rpm) * .1;
+  coords.textContent = `RPM ${String(Math.round(rpm)).padStart(3, "0")} · ${(rpm * .126).toFixed(1).padStart(4, "0")} KM/H`;
+  apply();
+  tilt.position.y += Math.sin(time * .8) * .012;   // subtle float
+  renderer.render(scene, camera);
+
+  // exploded callouts follow the parts on screen
+  const vis = exploreOn * Math.max(0, Math.min(1, (S.ex - .55) / .4));
+  tilt.updateMatrixWorld();
+  anchors[0].set(Math.cos(.75), Math.sin(.75), tire.position.z);
+  anchors[1].set(Math.cos(3.6) * (R - S.depth * .5), Math.sin(3.6) * (R - S.depth * .5), rim.position.z);
+  anchors[2].set(0, 0, hub.position.z - .07);
+  const W2 = stage.clientWidth, H2 = stage.clientHeight, top = stage.getBoundingClientRect().top;
+  const offs = mobile ? [[-20, -120], [-140, 40], [10, 70]] : [[150, -40], [-300, 70], [-60, 150]];
+  callouts.forEach((c, i) => {
+    P.copy(anchors[i]).applyMatrix4(tilt.matrixWorld).project(camera);
+    const x = (P.x * .5 + .5) * W2, y = (-P.y * .5 + .5) * H2 + top;
+    const lx = Math.max(12, Math.min(W2 - 160, x + offs[i][0])), ly = y + offs[i][1];
+    c.el.style.opacity = vis; c.el.style.transform = `translate(${lx}px, ${ly}px)`;
+    c.ln.setAttribute("x1", x); c.ln.setAttribute("y1", y); c.ln.setAttribute("x2", lx); c.ln.setAttribute("y2", ly + 8);
+    c.ln.style.opacity = vis; c.dot.setAttribute("cx", x); c.dot.setAttribute("cy", y); c.dot.style.opacity = vis;
+  });
+});
+
+/* ================= Scramble text ================= */
+const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#+-";
+function prepScramble(el) {
+  el._lines = el.innerHTML.split(/<br\s*\/?>/i).map(l => {
+    const tmp = document.createElement("div"); tmp.innerHTML = l;
+    return { text: tmp.textContent, em: !!tmp.querySelector("em") };
+  });
+  drawScramble(el, 0);
+}
+function drawScramble(el, p) {
+  const total = el._lines.reduce((n, l) => n + l.text.length, 0);
+  let idx = 0;
+  el.innerHTML = el._lines.map(l => {
+    let out = "";
+    for (const ch of l.text) {
+      const k = idx++ / total;
+      if (ch === " ") out += " ";
+      else if (k < p - .12) out += ch;
+      else if (k < p) out += `<span style="opacity:.5">${GLYPHS[(Math.random() * GLYPHS.length) | 0]}</span>`;
+      else out += `<span style="opacity:0">${ch}</span>`;
+    }
+    return l.em ? `<em>${out}</em>` : out;
+  }).join("<br>");
+}
+function scramble(el, dur = 1.4) {
+  const o = { p: 0 };
+  return gsap.to(o, { p: 1.12, duration: reduce ? .01 : dur, ease: "power2.out", onUpdate: () => drawScramble(el, o.p) });
+}
+const scrambles = [...document.querySelectorAll("[data-scramble]")];
+scrambles.forEach(prepScramble);
+
+/* ================= Section choreography ================= */
+const sections = [...document.querySelectorAll("[data-k]")];
+sections.forEach((sec, i) => {
+  if (i === 0) return;
+  gsap.fromTo(S, { ...K[i - 1] }, { ...K[i], ease: "power2.inOut", immediateRender: false,
+    scrollTrigger: { trigger: sec, start: "top bottom", end: () => sec.offsetHeight > innerHeight * 1.2 ? "top top" : "top 30%", scrub: 1.2 } });
+});
+ScrollTrigger.create({ trigger: ".s-explode", start: "top 40%", end: "bottom 60%", onToggle: s => { exploreOn = s.isActive ? 1 : 0; } });
+
+scrambles.forEach(el => {
+  if (el.closest(".hero")) return;
+  ScrollTrigger.create({ trigger: el, start: "top 80%", once: true, onEnter: () => scramble(el, 1.3) });
+});
+gsap.utils.toArray(".copy p, .spec").forEach(el => {
+  gsap.from(el, { y: 24, autoAlpha: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+});
+gsap.utils.toArray(".card").forEach((c, i) => {
+  gsap.from(c, { y: 120, autoAlpha: 0, duration: 1.4, delay: i * .1, ease: "expo.out", scrollTrigger: { trigger: ".cards", start: "top 85%" } });
+  gsap.from(c.querySelector("img"), { rotate: -200, scale: .7, duration: 2.2, delay: i * .12, ease: "expo.out", scrollTrigger: { trigger: ".cards", start: "top 85%" } });
+});
+gsap.utils.toArray(".big-num").forEach(n => gsap.from(n, { yPercent: 40, ease: "none", scrollTrigger: { trigger: n.closest("section"), start: "top bottom", end: "bottom top", scrub: true } }));
+gsap.from(".giant span", { yPercent: 100, autoAlpha: 0, stagger: .05, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "footer", start: "top 75%" } });
+gsap.to(".giant span", { color: "#e6e3dc", stagger: .06, ease: "none", scrollTrigger: { trigger: ".giant", start: "top 95%", end: "bottom bottom", scrub: true } });
+
+// chapter rail
+const railLinks = [...document.querySelectorAll(".rail-nav a")];
+[["#philosophy"], ["#engineering"], ["#road", "#gravel", "#triathlon"], ["#lineup"]].forEach((ids, i) => ids.forEach(id =>
+  ScrollTrigger.create({ trigger: id, start: "top 50%", end: "bottom 50%", onToggle: s => { if (s.isActive) railLinks.forEach((a, k) => a.classList.toggle("on", k === i)); } })));
+gsap.to("#railbar", { scaleY: 1, ease: "none", scrollTrigger: { trigger: "#philosophy", start: "top 50%", endTrigger: "#lineup", end: "bottom 50%", scrub: true } });
+gsap.set(".rail-nav", { autoAlpha: 0 });
+ScrollTrigger.create({ trigger: "#philosophy", start: "top 70%", endTrigger: "#lineup", end: "bottom 40%", onToggle: s => gsap.to(".rail-nav", { autoAlpha: s.isActive ? 1 : 0, duration: .6 }) });
+
+// mega menu
+const megaLink = document.querySelector("[data-mega]");
+if (!mobile) {
+  const close = () => { mega.classList.remove("open"); megaLink.classList.remove("open"); };
+  megaLink.addEventListener("mouseenter", () => { mega.classList.add("open"); megaLink.classList.add("open"); });
+  mega.addEventListener("mouseleave", close);
+  document.querySelector("header.site").addEventListener("mouseleave", e => { if (!mega.contains(e.relatedTarget)) close(); });
+}
+
+// mouse parallax on the wheel
+if (!mobile && !reduce) addEventListener("mousemove", e => gsap.to(M, { x: e.clientX / innerWidth - .5, y: e.clientY / innerHeight - .5, duration: 1.4, ease: "power3.out" }));
+
+/* ================= Intro: the wheel assembles itself ================= */
+const ring = document.getElementById("ring"), pct = document.getElementById("pct"), loader = document.querySelector(".loader");
+const hero = document.querySelector(".hero h1");
+const n = { v: 0 };
+gsap.set([".hero .eyebrow", ".hero .sub", ".hero .btn", ".hero .scroll", "header.site", ".frame"], { autoAlpha: 0 });
+Object.assign(S, { ...K[0], ex: 1.6, s: K[0].s * .55, ry: -2.6, rx: .7, py: K[0].py + .4 });
+gsap.timeline()
+  .to(n, { v: 100, duration: reduce ? .2 : 1.5, ease: "power2.inOut", onUpdate: () => { pct.textContent = String(Math.round(n.v)).padStart(3, "0"); ring.style.strokeDashoffset = 351.9 * (1 - n.v / 100); } })
+  .to(loader, { autoAlpha: 0, duration: .8, ease: "power2.out" })
+  .to(S, { ...K[0], duration: reduce ? .1 : 3, ease: "expo.out" }, "-=.6")
+  .add(() => scramble(hero, 1.6), "-=2.3")
+  .to([".frame", "header.site"], { autoAlpha: 1, duration: 1.2 }, "-=2")
+  .to([".hero .eyebrow", ".hero .sub", ".hero .btn", ".hero .scroll"], { autoAlpha: 1, stagger: .1, duration: 1.2, ease: "expo.out" }, "-=1.6")
+  .add(() => { loader.remove(); document.body.classList.remove("loading"); lenis.start(); ScrollTrigger.refresh(); }, "-=1.2");
+window.__lenis = lenis;
+</script>
+</body>
+</html>

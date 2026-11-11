@@ -1,0 +1,6 @@
+# DEMO: bloquea todo. Al publicar, reemplazar por:
+# User-agent: *
+# Allow: /
+# Sitemap: https://DOMINIO-A-CONFIRMAR.co/sitemap.xml
+User-agent: *
+Disallow: /
